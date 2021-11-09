@@ -1,0 +1,309 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>商品详情页</title>
+        <meta name="keywords" content="商品详情页"/>
+        <meta name="description" content="商品详情页"/>
+        <link href="/static/css/normalize.css" rel="stylesheet" type="text/css">
+        <link href="/static/layui/css/layui.css" rel="stylesheet" type="text/css">
+        <script src="/static/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/static/js/jquery.cookie.js" type="text/javascript"></script>
+        <script src="/static/layui/layui.js" type="text/javascript"></script>
+        <script src="/static/js/common.js" type="text/javascript"></script>
+        <script src="/static/js/cart.js" type="text/javascript"></script>
+    </head>
+    <body>
+    <div class="showall">
+        <!--left -->
+        <div class="showbot">
+            <div id="showbox">
+                {% for item in imgs %}
+                    <img src="{{ item }}" width="400" height="400"/>
+                {% endfor %}
+
+            </div><!--展示图片盒子-->
+            <div id="showsum">
+                <!--展示图片里边-->
+            </div>
+            <p class="showpage">
+                <a href="javascript:void(0);" id="showlast"> < </a>
+                <a href="javascript:void(0);" id="shownext"> > </a>
+            </p>
+        </div>
+        <!--conet -->
+        <div class="tb-property">
+            <div class="tr-nobdr">
+                <h3> {{ info.name }}</h3>
+            </div>
+            <div class="txt">
+                <span class="nowprice">￥<a id="jiage_a" href="">{{ info.price }}</a></span>
+            </div>
+            <div class="txt-h">
+                <span class="tex-o">分类</span>
+                <ul class="glist" id="glist" data-monitor="goodsdetails_fenlei_click">
+                    {% for item in colors %}
+                        <li><a class="liunclick" onclick="touch_a(this)" title="{{ item }}"
+                               href="javascript:;">{{ item }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="txt-h">
+                <span class="tex-o">套餐</span>
+                <select id="taocan" onchange="selectcevent()" class="taocanselect">
+                    <option disabled selected value>请先选择分类</option>
+<!--                    {% for item in combos %}-->
+<!--                        <option value="{{ item }}">{{ item }}</option>-->
+<!--                    {% endfor %}-->
+                </select>
+            </div>
+            <div class="gcIpt">
+                <span class="guT">数量</span>
+                <input id="min" name="" type="button" value="-"/>
+                <input id="text_box" oninput="totalchangeevent()" name="" type="text" value="1"
+                       style="width:30px; text-align: center; color: #0F0F0F;"/>
+                <input id="add" name="" type="button" value="+"/>
+                <span id="kucun" class="Hgt">库存（{{ ftotal }}）</span>
+            </div>
+            <div class="txt-h">
+                <span class="tex-o">已选择</span>
+                <span id="tips" class="tex-o">红色</span>
+            </div>
+            <div class="nobdr-btns">
+                <button id="addtocard" class="addcart hu"><img src="/static/images/shop.png" width="25" height="25"/>加入购物车
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="jieshao">
+        <div class="jstitle">商品介绍</div>
+        <div class="productjieshao">
+            {{ info.info }}
+        </div>
+    </div>
+    <div class="layui-carousel" id="lb" style="margin: 0 auto;" lay-filter="test1">
+        <div carousel-item="">
+            {% for product in products %}
+                <a href="">
+                    <img class="img-slide img1" src="{{ product.imageURL }}">
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div style="height: 20px;"></div>
+    </body>
+    </html>
+
+
+    <script>
+        function getToken(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        var pinfo = {{ pinfojson | safe }};
+        var csrftoken = getToken('csrftoken')
+        var cart = JSON.parse($.cookie('cart'))
+        var user = '{{request.user}}'
+        var chooseselect = "{{ fcombo }}"
+        var choosecolor = "{{ fcolor }}"
+        var choosetotal = 1
+        var total = {{ ftotal }}
+
+
+        var showproduct = {
+            "boxid": "showbox",
+            "sumid": "showsum",
+            "boxw": 400,//宽度,该版本中请把宽高填写成一样
+            "boxh": 400,//高度,该版本中请把宽高填写成一样
+            "sumw": 60,//列表每个宽度,该版本中请把宽高填写成一样
+            "sumh": 60,//列表每个高度,该版本中请把宽高填写成一样
+            "sumi": 7,//列表间隔
+            "sums": 5,//列表显示个数
+            "sumsel": "sel",
+            "sumborder": 1,//列表边框，没有边框填写0，边框在css中修改
+            "lastid": "showlast",
+            "nextid": "shownext"
+        };//参数定义
+        $.ljsGlasses.pcGlasses(showproduct);//方法调用，务必在加载完后执行
+
+        $(document).ready(function () {
+
+
+            //获取选中的下拉框
+            chooseselect = $("#taocan").val()
+
+
+            //轮播
+            layui.use(['carousel'], function () {
+                var carousel = layui.carousel
+
+                //常规轮播
+                carousel.render({
+                    elem: '#lb'
+                    , arrow: 'always'
+                });
+
+            })
+
+            var t = $("#text_box");
+            //$('#min').attr('disabled', true);
+            $("#add").click(function () {
+                t.val(parseInt(t.val()) + 1)
+                if (parseInt(t.val()) != 1) {
+                    $('#min').attr('disabled', false);
+                }
+                if (parseInt(t.val()) >= total) {
+                    $('#add').attr('disabled', true);
+                }
+                choosetotal = parseInt(t.val())
+                $("#tips").text(choosecolor + "、" + chooseselect + choosetotal + "件")
+            })
+            $("#min").click(function () {
+                t.val(parseInt(t.val()) - 1);
+                if (parseInt(t.val()) == 0) {
+                    $('#min').attr('disabled', true);
+                }
+                if (parseInt(t.val()) < total) {
+                    $('#add').attr('disabled', false);
+                }
+                choosetotal = parseInt(t.val())
+                $("#tips").text(choosecolor + "、" + chooseselect + choosetotal + "件")
+            })
+
+
+            if (total == 0) {
+                $("#text_box").val(0)
+                choosetotal = 0
+            }
+            $("#tips").text(choosecolor + "、" + chooseselect + choosetotal + "件")
+
+            //添加到购物车
+            $("#addtocard").click(function () {
+                if (choosetotal <= 0) {
+                    layui.layer.msg("请至少添加一件商品！！！", {
+                        icon: 2,
+                        time: 2000
+                    })
+                } else {
+                    layui.layer.load();
+                    var price = parseFloat($("#jiage_a").text())
+                    var totalprice = price * choosetotal
+                    if (user == 'AnonymousUser') {
+                        addCookieItem_d({{ pk }}, choosecolor, chooseselect, price, choosetotal, 'add')
+                    } else {
+                        updateUserOrder_d({{ pk }}, choosecolor, chooseselect, price, choosetotal, 'add')
+                    }
+                    layui.layer.closeAll()
+                }
+            })
+
+        });
+
+        function querytotal() {
+            $.ajax({
+                type: 'post',
+                url: '/queryproducttotal',
+                data: {
+                    pk:{{ pk }},
+                    color: choosecolor,
+                    combo: chooseselect
+                },
+                beforeSend: function () {
+                    layui.layer.load();
+                },
+                dataType: 'json',
+                success: function (r) {
+                    layui.layer.closeAll()
+                    total = parseInt(r['total'])
+                    console.log("价格：", r['price'])
+                    $("#jiage_a").text(r['price'])
+                    $("#kucun").text("库存（" + total + "）")
+                    if (total > 0) {
+                        $("#text_box").val(1)
+                        choosetotal = 1
+                        $('#add').attr('disabled', false);
+                        $('#min').attr('disabled', false);
+                    } else {
+                        $("#text_box").val(0)
+                        choosetotal = 0
+                        $('#add').attr('disabled', true);
+                        $('#min').attr('disabled', true);
+                    }
+                    $("#tips").text(choosecolor + "、" + chooseselect + choosetotal + "件")
+                },
+                error: function () {
+                    layui.layer.closeAll()
+                }
+            })
+        }
+
+        function touch_a(em) {
+            $('#glist>li>a').removeClass('liclick').addClass('liunclick');
+            $(em).removeClass('liunclick').addClass('liclick');
+
+
+            choosecolor = $(em).text()
+
+            var options = pinfo.data.filter(item => {
+                return item['color'] === choosecolor;
+            }).map(item => {
+                return `<option value="${item.combo}">${item.combo}</option>`;
+            });
+
+            $('#taocan').html(options.join('\n'));
+
+            setTimeout(() => {
+                $('#taocan option').first().trigger('change');
+            }, 50);
+        }
+
+        function selectcevent() {
+            chooseselect = $("#taocan").val()
+            querytotal()
+        }
+
+        function totalchangeevent() {
+            var reg = /^[0-9]*$/
+            var pattern = new RegExp(reg);
+            if (!pattern.test($("#text_box").val())) {
+                $("#text_box").val(choosetotal)
+            }
+            if ($("#text_box").val() == "") {
+                $("#text_box").val(choosetotal)
+            }
+            if (parseInt($("#text_box").val()) > total) {
+                $("#text_box").val(total)
+                $('#add').attr('disabled', true);
+            } else {
+                $('#add').attr('disabled', false);
+            }
+            if (parseInt($("#text_box").val()) < 0) {
+                $("#text_box").val(0)
+                $('#min').attr('disabled', true);
+            } else {
+                $('#min').attr('disabled', false);
+            }
+            choosetotal = parseInt($("#text_box").val())
+            $("#tips").text(choosecolor + "、" + chooseselect + choosetotal + "件")
+            querytotal()
+        }
+
+
+    </script>
+{% endblock content %}

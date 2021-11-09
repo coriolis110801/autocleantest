@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>画板</title>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Work+Sans|Libre+Franklin|Roboto"> -->
+
+
+		<link rel="shortcut icon" type="image/png"
+			href="https://flower-manufacturing.s3.amazonaws.com:443/stores/MakeLogo.png">
+
+
+		<link href="https://flower-manufacturing.s3.amazonaws.com:443/build/storefront.css" rel="stylesheet"
+			type="text/css">
+
+
+		<link href="https://flower-manufacturing.s3.amazonaws.com:443/frontend/makemyfresheners/css/master.css.gz"
+			rel="stylesheet" type="text/css">
+
+
+
+
+	</head>
+	<body class="cart">
+
+		<div id="wrapper">
+
+			<header id="header">
+				<nav class="navbar navbar-default navbar-static-top navbar-toggleable-sm navbar-inverse">
+					<div class="container">
+
+						<div class="collapse navbar-collapse" id="collapsable-navbar">
+							<ul class="nav navbar-nav navbar-right ml-auto">
+
+
+
+
+							</ul>
+						</div><!-- /.navbar-collapse -->
+					</div><!-- /.container-fluid -->
+				</nav>
+			</header>
+
+
+
+
+			<div class="progress-bar-container">
+				<div class="container-fluid">
+					<div class="progress-bar-designer cart">
+						<div class="row">
+							<div class="shapes-col">
+								<p>选形状</p>
+							</div>
+							<div class="details-col active">
+								<p>图片细节</p>
+							</div>
+							<div class="design-col ">
+								<p>开始画图</p>
+							</div>
+							<div class="review-col ">
+								<p>检查</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container main-content shapes">
+
+				<div class="js-cart cart">
+					<div data-reactid=".0">
+						<div class="row" data-reactid=".0.1">
+							<div class="col-lg-8 col-md-12" data-reactid=".0.1.1">
+								<div class="cart-item-list" data-reactid=".0.1.1.0">
+									<p class="visible-xs hidden-sm alert alert-success" data-reactid=".0.1.1.0.0">
+										选择字体，颜色，以及大小.</p>
+									<div class="scent-list row hidden-xs visible-sm visible-md visible-lg"
+										data-reactid=".0.1.1.0.1">
+										<div class="scent-list-header col-xs-12 col-sm-4" data-reactid=".0.1.1.0.1.0">字体
+										</div>
+										<div class="scent-list-header col-xs-12 col-sm-4" data-reactid=".0.1.1.0.1.1">
+											S颜色</div>
+										<div class="scent-list-header col-xs-12 col-sm-4" data-reactid=".0.1.1.0.1.2">
+											数字大小</div>
+									</div>
+									<div class="row cart-item-list-form-row" data-reactid=".0.1.1.0.2:$0">
+										<div class="col-xs-12 col-sm-4" data-reactid=".0.1.1.0.2:$0.0"><label
+												class="hidden-sm hidden-md hidden-lg"
+												data-reactid=".0.1.1.0.2:$0.0.0">Scent</label><select
+												class="form-control item scent-select "
+												data-reactid=".0.1.1.0.2:$0.0.2">
+												<option value="46" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$18">Baby
+													Powder</option>
+												<option value="29" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$1">Black
+													Raspberry Vanilla</option>
+												<option value="40" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$12">
+													Cherry</option>
+												<option value="32" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$4">
+													Cinnamon</option>
+												<option value="43" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$15">
+													Citrus</option>
+												<option value="45" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$17">
+													Cucumber Melon</option>
+												<option value="36" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$8">Dark
+													Ice</option>
+												<option value="47" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$19">
+													Fresh Air</option>
+												<option value="37" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$9">Guava
+												</option>
+												<option value="34" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$6">
+													Jasmine</option>
+												<option value="33" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$5">Lemon
+												</option>
+												<option value="80" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$21">No
+													Fragrance</option>
+												<option value="41" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$13">
+													NuCar</option>
+												<option value="30" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$2">Paris
+													Hilton Replica</option>
+												<option value="38" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$10">
+													Peach</option>
+												<option value="35" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$7">Pina
+													Colada</option>
+												<option value="44" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$16">Pine
+												</option>
+												<option value="42" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$14">
+													Strawberry</option>
+												<option value="39" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$11">
+													Sweet Pea</option>
+												<option value="31" class="red" data-reactid=".0.1.1.0.2:$0.0.2.$3">
+													Vanilla</option>
+											</select></div>
+										<div class="col-xs-12 col-sm-4" data-reactid=".0.1.1.0.2:$0.1"><label
+												class="hidden-sm hidden-md hidden-lg"
+												data-reactid=".0.1.1.0.2:$0.1.0">String</label>
+											<div class="string-control" data-reactid=".0.1.1.0.2:$0.1.1">
+												<div class="color-pallete" style="background-color:#ffffff;"
+													data-reactid=".0.1.1.0.2:$0.1.1.0"></div><select
+													id="colorSelect"
+													class="form-control item scent-select "
+													data-reactid=".0.1.1.0.2:$0.1.1.2">
+													<option value="61" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$3">White</option>
+													<option value="62" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$4">Yellow</option>
+													<option value="48" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$1">Red</option>
+													<option value="73" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$10">Purple</option>
+													<option value="71" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$8">PInk</option>
+													<option value="72" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$9">Orange</option>
+													<option value="64" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$7">Green</option>
+													<option value="65" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$6">Brown</option>
+													<option value="49" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$2">Blue</option>
+													<option value="63" class="red"
+														data-reactid=".0.1.1.0.2:$0.1.1.2.$5">Black</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-3" data-reactid=".0.1.1.0.2:$0.2"><label
+												class="hidden-sm hidden-md hidden-lg"
+												data-reactid=".0.1.1.0.2:$0.2.0"><span
+													data-reactid=".0.1.1.0.2:$0.2.0.0">数量 </span><span
+													data-reactid=".0.1.1.0.2:$0.2.0.1">3</span><span
+													data-reactid=".0.1.1.0.2:$0.2.0.2">)</span></label><input
+												type="number" min="3" class="form-control quantity " placeholder="3 最小数"
+												data-reactid=".0.1.1.0.2:$0.2.2"></div>
+									</div><span data-reactid=".0.1.1.0.6"></span>
+									<div class="disclaimer-text" data-reactid=".0.1.1.0.7">
+										<p data-reactid=".0.1.1.0.7.0"><span data-reactid=".0.1.1.0.7.0.0">数字大小
+											</span><span data-reactid=".0.1.1.0.7.0.1">3</span><span
+												data-reactid=".0.1.1.0.7.0.2"> 行</span></p>
+										<p data-reactid=".0.1.1.0.7.1">数字为整数</p>
+										<p data-reactid=".0.1.1.0.7.2"><b data-reactid=".0.1.1.0.7.2.0">*字符串</b><span
+												data-reactid=".0.1.1.0.7.2.1"> 整数</span></p>
+									</div><a class="btn btn-default back-btn hidden-md visible-lg"
+										data-reactid=".0.1.1.0.8">Back</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-12" data-reactid=".0.1.2">
+								<div class="panel panel-default panel-checkout " data-reactid=".0.1.2.0">
+									<div class="panel-loading " data-reactid=".0.1.2.0.0"><i
+											class="fa fa-spinner fa-pulse fa-3x fa-fw" data-reactid=".0.1.2.0.0.0"></i>
+										<div class="item-checkout-review" data-reactid=".0.1.2.0.0.1:$0">
+											<p data-reactid=".0.1.2.0.0.1:$0.0"><label
+													data-reactid=".0.1.2.0.0.1:$0.0.0">Scent</label><span
+													data-reactid=".0.1.2.0.0.1:$0.0.1"> </span><span
+													data-reactid=".0.1.2.0.0.1:$0.0.2">Citrus</span><span
+													data-reactid=".0.1.2.0.0.1:$0.0.3"> </span></p>
+											<p data-reactid=".0.1.2.0.0.1:$0.1"><label
+													data-reactid=".0.1.2.0.0.1:$0.1.0">String Color</label><span
+													data-reactid=".0.1.2.0.0.1:$0.1.1"> </span><span
+													data-reactid=".0.1.2.0.0.1:$0.1.2">White</span><span
+													data-reactid=".0.1.2.0.0.1:$0.1.3"> </span></p>
+											<p data-reactid=".0.1.2.0.0.1:$0.2"><label
+													data-reactid=".0.1.2.0.0.1:$0.2.0">数字</label><span
+													data-reactid=".0.1.2.0.0.1:$0.2.1"> </span><span
+													data-reactid=".0.1.2.0.0.1:$0.2.2">Not Selected</span></p>
+											<p class="price" data-reactid=".0.1.2.0.0.1:$0.3"><label
+													data-reactid=".0.1.2.0.0.1:$0.3.0">价格</label><span
+													data-reactid=".0.1.2.0.0.1:$0.3.1">Not Eligible</span></p>
+											<p data-reactid=".0.1.2.0.0.1:$0.4"><label
+													data-reactid=".0.1.2.0.0.1:$0.4.0">丝网印刷</label><span
+													data-reactid=".0.1.2.0.0.1:$0.4.1">包括</span></p>
+										</div><select id="country" class="form-control rush-fulfillment"
+											data-reactid=".0.1.2.0.0.2">
+											<option value="AF" data-reactid=".0.1.2.0.0.2.$0">Afghanistan</option>
+											<option value="AX" data-reactid=".0.1.2.0.0.2.$1">Åland Islands</option>
+											<option value="AL" data-reactid=".0.1.2.0.0.2.$2">Albania</option>
+											<option value="DZ" data-reactid=".0.1.2.0.0.2.$3">Algeria</option>
+											<option value="AS" data-reactid=".0.1.2.0.0.2.$4">American Samoa</option>
+											<option value="AD" data-reactid=".0.1.2.0.0.2.$5">Andorra</option>
+											<option value="AO" data-reactid=".0.1.2.0.0.2.$6">Angola</option>
+											<option value="AI" data-reactid=".0.1.2.0.0.2.$7">Anguilla</option>
+											<option value="AQ" data-reactid=".0.1.2.0.0.2.$8">Antarctica</option>
+											<option value="AG" data-reactid=".0.1.2.0.0.2.$9">Antigua and Barbuda
+											</option>
+											<option value="AR" data-reactid=".0.1.2.0.0.2.$10">Argentina</option>
+											<option value="AM" data-reactid=".0.1.2.0.0.2.$11">Armenia</option>
+											<option value="AW" data-reactid=".0.1.2.0.0.2.$12">Aruba</option>
+											<option value="AU" data-reactid=".0.1.2.0.0.2.$13">Australia</option>
+											<option value="AT" data-reactid=".0.1.2.0.0.2.$14">Austria</option>
+											<option value="AZ" data-reactid=".0.1.2.0.0.2.$15">Azerbaijan</option>
+											<option value="BS" data-reactid=".0.1.2.0.0.2.$16">Bahamas</option>
+											<option value="BH" data-reactid=".0.1.2.0.0.2.$17">Bahrain</option>
+											<option value="BD" data-reactid=".0.1.2.0.0.2.$18">Bangladesh</option>
+											<option value="BB" data-reactid=".0.1.2.0.0.2.$19">Barbados</option>
+											<option value="BY" data-reactid=".0.1.2.0.0.2.$20">Belarus</option>
+											<option value="BE" data-reactid=".0.1.2.0.0.2.$21">Belgium</option>
+											<option value="BZ" data-reactid=".0.1.2.0.0.2.$22">Belize</option>
+											<option value="BJ" data-reactid=".0.1.2.0.0.2.$23">Benin</option>
+											<option value="BM" data-reactid=".0.1.2.0.0.2.$24">Bermuda</option>
+											<option value="BT" data-reactid=".0.1.2.0.0.2.$25">Bhutan</option>
+											<option value="BO" data-reactid=".0.1.2.0.0.2.$26">Bolivia</option>
+											<option value="BQ" data-reactid=".0.1.2.0.0.2.$27">Bonaire, Sint Eustatius
+												and Saba</option>
+											<option value="BA" data-reactid=".0.1.2.0.0.2.$28">Bosnia and Herzegovina
+											</option>
+											<option value="BW" data-reactid=".0.1.2.0.0.2.$29">Botswana</option>
+											<option value="BV" data-reactid=".0.1.2.0.0.2.$30">Bouvet Island</option>
+											<option value="BR" data-reactid=".0.1.2.0.0.2.$31">Brazil</option>
+											<option value="IO" data-reactid=".0.1.2.0.0.2.$32">British Indian Ocean
+												Territory</option>
+											<option value="BN" data-reactid=".0.1.2.0.0.2.$33">Brunei</option>
+											<option value="BG" data-reactid=".0.1.2.0.0.2.$34">Bulgaria</option>
+											<option value="BF" data-reactid=".0.1.2.0.0.2.$35">Burkina Faso</option>
+											<option value="BI" data-reactid=".0.1.2.0.0.2.$36">Burundi</option>
+											<option value="CV" data-reactid=".0.1.2.0.0.2.$37">Cabo Verde</option>
+											<option value="KH" data-reactid=".0.1.2.0.0.2.$38">Cambodia</option>
+											<option value="CM" data-reactid=".0.1.2.0.0.2.$39">Cameroon</option>
+											<option value="CA" data-reactid=".0.1.2.0.0.2.$40">Canada</option>
+											<option value="KY" data-reactid=".0.1.2.0.0.2.$41">Cayman Islands</option>
+											<option value="CF" data-reactid=".0.1.2.0.0.2.$42">Central African Republic
+											</option>
+											<option value="TD" data-reactid=".0.1.2.0.0.2.$43">Chad</option>
+											<option value="CL" data-reactid=".0.1.2.0.0.2.$44">Chile</option>
+											<option value="CN" data-reactid=".0.1.2.0.0.2.$45">China</option>
+											<option value="CX" data-reactid=".0.1.2.0.0.2.$46">Christmas Island</option>
+											<option value="CC" data-reactid=".0.1.2.0.0.2.$47">Cocos (Keeling) Islands
+											</option>
+											<option value="CO" data-reactid=".0.1.2.0.0.2.$48">Colombia</option>
+											<option value="KM" data-reactid=".0.1.2.0.0.2.$49">Comoros</option>
+											<option value="CD" data-reactid=".0.1.2.0.0.2.$50">Congo (the Democratic
+												Republic of the)</option>
+											<option value="CG" data-reactid=".0.1.2.0.0.2.$51">Congo</option>
+											<option value="CK" data-reactid=".0.1.2.0.0.2.$52">Cook Islands</option>
+											<option value="CR" data-reactid=".0.1.2.0.0.2.$53">Costa Rica</option>
+											<option value="CI" data-reactid=".0.1.2.0.0.2.$54">Côte d'Ivoire</option>
+											<option value="HR" data-reactid=".0.1.2.0.0.2.$55">Croatia</option>
+											<option value="CU" data-reactid=".0.1.2.0.0.2.$56">Cuba</option>
+											<option value="CW" data-reactid=".0.1.2.0.0.2.$57">Curaçao</option>
+											<option value="CY" data-reactid=".0.1.2.0.0.2.$58">Cyprus</option>
+											<option value="CZ" data-reactid=".0.1.2.0.0.2.$59">Czechia</option>
+											<option value="DK" data-reactid=".0.1.2.0.0.2.$60">Denmark</option>
+											<option value="DJ" data-reactid=".0.1.2.0.0.2.$61">Djibouti</option>
+											<option value="DM" data-reactid=".0.1.2.0.0.2.$62">Dominica</option>
+											<option value="DO" data-reactid=".0.1.2.0.0.2.$63">Dominican Republic
+											</option>
+											<option value="EC" data-reactid=".0.1.2.0.0.2.$64">Ecuador</option>
+											<option value="EG" data-reactid=".0.1.2.0.0.2.$65">Egypt</option>
+											<option value="SV" data-reactid=".0.1.2.0.0.2.$66">El Salvador</option>
+											<option value="GQ" data-reactid=".0.1.2.0.0.2.$67">Equatorial Guinea
+											</option>
+											<option value="ER" data-reactid=".0.1.2.0.0.2.$68">Eritrea</option>
+											<option value="EE" data-reactid=".0.1.2.0.0.2.$69">Estonia</option>
+											<option value="ET" data-reactid=".0.1.2.0.0.2.$70">Ethiopia</option>
+											<option value="FK" data-reactid=".0.1.2.0.0.2.$71">Falkland Islands
+												[Malvinas]</option>
+											<option value="FO" data-reactid=".0.1.2.0.0.2.$72">Faroe Islands</option>
+											<option value="FJ" data-reactid=".0.1.2.0.0.2.$73">Fiji</option>
+											<option value="FI" data-reactid=".0.1.2.0.0.2.$74">Finland</option>
+											<option value="FR" data-reactid=".0.1.2.0.0.2.$75">France</option>
+											<option value="GF" data-reactid=".0.1.2.0.0.2.$76">French Guiana</option>
+											<option value="PF" data-reactid=".0.1.2.0.0.2.$77">French Polynesia</option>
+											<option value="TF" data-reactid=".0.1.2.0.0.2.$78">French Southern
+												Territories</option>
+											<option value="GA" data-reactid=".0.1.2.0.0.2.$79">Gabon</option>
+											<option value="GM" data-reactid=".0.1.2.0.0.2.$80">Gambia</option>
+											<option value="GE" data-reactid=".0.1.2.0.0.2.$81">Georgia</option>
+											<option value="DE" data-reactid=".0.1.2.0.0.2.$82">Germany</option>
+											<option value="GH" data-reactid=".0.1.2.0.0.2.$83">Ghana</option>
+											<option value="GI" data-reactid=".0.1.2.0.0.2.$84">Gibraltar</option>
+											<option value="GR" data-reactid=".0.1.2.0.0.2.$85">Greece</option>
+											<option value="GL" data-reactid=".0.1.2.0.0.2.$86">Greenland</option>
+											<option value="GD" data-reactid=".0.1.2.0.0.2.$87">Grenada</option>
+											<option value="GP" data-reactid=".0.1.2.0.0.2.$88">Guadeloupe</option>
+											<option value="GU" data-reactid=".0.1.2.0.0.2.$89">Guam</option>
+											<option value="GT" data-reactid=".0.1.2.0.0.2.$90">Guatemala</option>
+											<option value="GG" data-reactid=".0.1.2.0.0.2.$91">Guernsey</option>
+											<option value="GN" data-reactid=".0.1.2.0.0.2.$92">Guinea</option>
+											<option value="GW" data-reactid=".0.1.2.0.0.2.$93">Guinea-Bissau</option>
+											<option value="GY" data-reactid=".0.1.2.0.0.2.$94">Guyana</option>
+											<option value="HT" data-reactid=".0.1.2.0.0.2.$95">Haiti</option>
+											<option value="HM" data-reactid=".0.1.2.0.0.2.$96">Heard Island and McDonald
+												Islands</option>
+											<option value="VA" data-reactid=".0.1.2.0.0.2.$97">Holy See</option>
+											<option value="HN" data-reactid=".0.1.2.0.0.2.$98">Honduras</option>
+											<option value="HK" data-reactid=".0.1.2.0.0.2.$99">Hong Kong</option>
+											<option value="HU" data-reactid=".0.1.2.0.0.2.$100">Hungary</option>
+											<option value="IS" data-reactid=".0.1.2.0.0.2.$101">Iceland</option>
+											<option value="IN" data-reactid=".0.1.2.0.0.2.$102">India</option>
+											<option value="ID" data-reactid=".0.1.2.0.0.2.$103">Indonesia</option>
+											<option value="IR" data-reactid=".0.1.2.0.0.2.$104">Iran</option>
+											<option value="IQ" data-reactid=".0.1.2.0.0.2.$105">Iraq</option>
+											<option value="IE" data-reactid=".0.1.2.0.0.2.$106">Ireland</option>
+											<option value="IM" data-reactid=".0.1.2.0.0.2.$107">Isle of Man</option>
+											<option value="IL" data-reactid=".0.1.2.0.0.2.$108">Israel</option>
+											<option value="IT" data-reactid=".0.1.2.0.0.2.$109">Italy</option>
+											<option value="JM" data-reactid=".0.1.2.0.0.2.$110">Jamaica</option>
+											<option value="JP" data-reactid=".0.1.2.0.0.2.$111">Japan</option>
+											<option value="JE" data-reactid=".0.1.2.0.0.2.$112">Jersey</option>
+											<option value="JO" data-reactid=".0.1.2.0.0.2.$113">Jordan</option>
+											<option value="KZ" data-reactid=".0.1.2.0.0.2.$114">Kazakhstan</option>
+											<option value="KE" data-reactid=".0.1.2.0.0.2.$115">Kenya</option>
+											<option value="KI" data-reactid=".0.1.2.0.0.2.$116">Kiribati</option>
+											<option value="KP" data-reactid=".0.1.2.0.0.2.$117">North Korea</option>
+											<option value="KR" data-reactid=".0.1.2.0.0.2.$118">South Korea</option>
+											<option value="KW" data-reactid=".0.1.2.0.0.2.$119">Kuwait</option>
+											<option value="KG" data-reactid=".0.1.2.0.0.2.$120">Kyrgyzstan</option>
+											<option value="LA" data-reactid=".0.1.2.0.0.2.$121">Laos</option>
+											<option value="LV" data-reactid=".0.1.2.0.0.2.$122">Latvia</option>
+											<option value="LB" data-reactid=".0.1.2.0.0.2.$123">Lebanon</option>
+											<option value="LS" data-reactid=".0.1.2.0.0.2.$124">Lesotho</option>
+											<option value="LR" data-reactid=".0.1.2.0.0.2.$125">Liberia</option>
+											<option value="LY" data-reactid=".0.1.2.0.0.2.$126">Libya</option>
+											<option value="LI" data-reactid=".0.1.2.0.0.2.$127">Liechtenstein</option>
+											<option value="LT" data-reactid=".0.1.2.0.0.2.$128">Lithuania</option>
+											<option value="LU" data-reactid=".0.1.2.0.0.2.$129">Luxembourg</option>
+											<option value="MO" data-reactid=".0.1.2.0.0.2.$130">Macao</option>
+											<option value="MK" data-reactid=".0.1.2.0.0.2.$131">Macedonia</option>
+											<option value="MG" data-reactid=".0.1.2.0.0.2.$132">Madagascar</option>
+											<option value="MW" data-reactid=".0.1.2.0.0.2.$133">Malawi</option>
+											<option value="MY" data-reactid=".0.1.2.0.0.2.$134">Malaysia</option>
+											<option value="MV" data-reactid=".0.1.2.0.0.2.$135">Maldives</option>
+											<option value="ML" data-reactid=".0.1.2.0.0.2.$136">Mali</option>
+											<option value="MT" data-reactid=".0.1.2.0.0.2.$137">Malta</option>
+											<option value="MH" data-reactid=".0.1.2.0.0.2.$138">Marshall Islands
+											</option>
+											<option value="MQ" data-reactid=".0.1.2.0.0.2.$139">Martinique</option>
+											<option value="MR" data-reactid=".0.1.2.0.0.2.$140">Mauritania</option>
+											<option value="MU" data-reactid=".0.1.2.0.0.2.$141">Mauritius</option>
+											<option value="YT" data-reactid=".0.1.2.0.0.2.$142">Mayotte</option>
+											<option value="MX" data-reactid=".0.1.2.0.0.2.$143">Mexico</option>
+											<option value="FM" data-reactid=".0.1.2.0.0.2.$144">Micronesia (Federated
+												States of)</option>
+											<option value="MD" data-reactid=".0.1.2.0.0.2.$145">Moldova</option>
+											<option value="MC" data-reactid=".0.1.2.0.0.2.$146">Monaco</option>
+											<option value="MN" data-reactid=".0.1.2.0.0.2.$147">Mongolia</option>
+											<option value="ME" data-reactid=".0.1.2.0.0.2.$148">Montenegro</option>
+											<option value="MS" data-reactid=".0.1.2.0.0.2.$149">Montserrat</option>
+											<option value="MA" data-reactid=".0.1.2.0.0.2.$150">Morocco</option>
+											<option value="MZ" data-reactid=".0.1.2.0.0.2.$151">Mozambique</option>
+											<option value="MM" data-reactid=".0.1.2.0.0.2.$152">Myanmar</option>
+											<option value="NA" data-reactid=".0.1.2.0.0.2.$153">Namibia</option>
+											<option value="NR" data-reactid=".0.1.2.0.0.2.$154">Nauru</option>
+											<option value="NP" data-reactid=".0.1.2.0.0.2.$155">Nepal</option>
+											<option value="NL" data-reactid=".0.1.2.0.0.2.$156">Netherlands</option>
+											<option value="NC" data-reactid=".0.1.2.0.0.2.$157">New Caledonia</option>
+											<option value="NZ" data-reactid=".0.1.2.0.0.2.$158">New Zealand</option>
+											<option value="NI" data-reactid=".0.1.2.0.0.2.$159">Nicaragua</option>
+											<option value="NE" data-reactid=".0.1.2.0.0.2.$160">Niger</option>
+											<option value="NG" data-reactid=".0.1.2.0.0.2.$161">Nigeria</option>
+											<option value="NU" data-reactid=".0.1.2.0.0.2.$162">Niue</option>
+											<option value="NF" data-reactid=".0.1.2.0.0.2.$163">Norfolk Island</option>
+											<option value="MP" data-reactid=".0.1.2.0.0.2.$164">Northern Mariana Islands
+											</option>
+											<option value="NO" data-reactid=".0.1.2.0.0.2.$165">Norway</option>
+											<option value="OM" data-reactid=".0.1.2.0.0.2.$166">Oman</option>
+											<option value="PK" data-reactid=".0.1.2.0.0.2.$167">Pakistan</option>
+											<option value="PW" data-reactid=".0.1.2.0.0.2.$168">Palau</option>
+											<option value="PS" data-reactid=".0.1.2.0.0.2.$169">Palestine, State of
+											</option>
+											<option value="PA" data-reactid=".0.1.2.0.0.2.$170">Panama</option>
+											<option value="PG" data-reactid=".0.1.2.0.0.2.$171">Papua New Guinea
+											</option>
+											<option value="PY" data-reactid=".0.1.2.0.0.2.$172">Paraguay</option>
+											<option value="PE" data-reactid=".0.1.2.0.0.2.$173">Peru</option>
+											<option value="PH" data-reactid=".0.1.2.0.0.2.$174">Philippines</option>
+											<option value="PN" data-reactid=".0.1.2.0.0.2.$175">Pitcairn</option>
+											<option value="PL" data-reactid=".0.1.2.0.0.2.$176">Poland</option>
+											<option value="PT" data-reactid=".0.1.2.0.0.2.$177">Portugal</option>
+											<option value="QA" data-reactid=".0.1.2.0.0.2.$178">Qatar</option>
+											<option value="RE" data-reactid=".0.1.2.0.0.2.$179">Réunion</option>
+											<option value="RO" data-reactid=".0.1.2.0.0.2.$180">Romania</option>
+											<option value="RU" data-reactid=".0.1.2.0.0.2.$181">Russia</option>
+											<option value="RW" data-reactid=".0.1.2.0.0.2.$182">Rwanda</option>
+											<option value="BL" data-reactid=".0.1.2.0.0.2.$183">Saint Barthélemy
+											</option>
+											<option value="SH" data-reactid=".0.1.2.0.0.2.$184">Saint Helena, Ascension
+												and Tristan da Cunha</option>
+											<option value="KN" data-reactid=".0.1.2.0.0.2.$185">Saint Kitts and Nevis
+											</option>
+											<option value="LC" data-reactid=".0.1.2.0.0.2.$186">Saint Lucia</option>
+											<option value="MF" data-reactid=".0.1.2.0.0.2.$187">Saint Martin (French
+												part)</option>
+											<option value="PM" data-reactid=".0.1.2.0.0.2.$188">Saint Pierre and
+												Miquelon</option>
+											<option value="VC" data-reactid=".0.1.2.0.0.2.$189">Saint Vincent and the
+												Grenadines</option>
+											<option value="WS" data-reactid=".0.1.2.0.0.2.$190">Samoa</option>
+											<option value="SM" data-reactid=".0.1.2.0.0.2.$191">San Marino</option>
+											<option value="ST" data-reactid=".0.1.2.0.0.2.$192">Sao Tome and Principe
+											</option>
+											<option value="SA" data-reactid=".0.1.2.0.0.2.$193">Saudi Arabia</option>
+											<option value="SN" data-reactid=".0.1.2.0.0.2.$194">Senegal</option>
+											<option value="RS" data-reactid=".0.1.2.0.0.2.$195">Serbia</option>
+											<option value="SC" data-reactid=".0.1.2.0.0.2.$196">Seychelles</option>
+											<option value="SL" data-reactid=".0.1.2.0.0.2.$197">Sierra Leone</option>
+											<option value="SG" data-reactid=".0.1.2.0.0.2.$198">Singapore</option>
+											<option value="SX" data-reactid=".0.1.2.0.0.2.$199">Sint Maarten (Dutch
+												part)</option>
+											<option value="SK" data-reactid=".0.1.2.0.0.2.$200">Slovakia</option>
+											<option value="SI" data-reactid=".0.1.2.0.0.2.$201">Slovenia</option>
+											<option value="SB" data-reactid=".0.1.2.0.0.2.$202">Solomon Islands</option>
+											<option value="SO" data-reactid=".0.1.2.0.0.2.$203">Somalia</option>
+											<option value="ZA" data-reactid=".0.1.2.0.0.2.$204">South Africa</option>
+											<option value="GS" data-reactid=".0.1.2.0.0.2.$205">South Georgia and the
+												South Sandwich Islands</option>
+											<option value="SS" data-reactid=".0.1.2.0.0.2.$206">South Sudan</option>
+											<option value="ES" data-reactid=".0.1.2.0.0.2.$207">Spain</option>
+											<option value="LK" data-reactid=".0.1.2.0.0.2.$208">Sri Lanka</option>
+											<option value="SD" data-reactid=".0.1.2.0.0.2.$209">Sudan</option>
+											<option value="SR" data-reactid=".0.1.2.0.0.2.$210">Suriname</option>
+											<option value="SJ" data-reactid=".0.1.2.0.0.2.$211">Svalbard and Jan Mayen
+											</option>
+											<option value="SZ" data-reactid=".0.1.2.0.0.2.$212">Swaziland</option>
+											<option value="SE" data-reactid=".0.1.2.0.0.2.$213">Sweden</option>
+											<option value="CH" data-reactid=".0.1.2.0.0.2.$214">Switzerland</option>
+											<option value="SY" data-reactid=".0.1.2.0.0.2.$215">Syria</option>
+											<option value="TW" data-reactid=".0.1.2.0.0.2.$216">Taiwan</option>
+											<option value="TJ" data-reactid=".0.1.2.0.0.2.$217">Tajikistan</option>
+											<option value="TZ" data-reactid=".0.1.2.0.0.2.$218">Tanzania</option>
+											<option value="TH" data-reactid=".0.1.2.0.0.2.$219">Thailand</option>
+											<option value="TL" data-reactid=".0.1.2.0.0.2.$220">Timor-Leste</option>
+											<option value="TG" data-reactid=".0.1.2.0.0.2.$221">Togo</option>
+											<option value="TK" data-reactid=".0.1.2.0.0.2.$222">Tokelau</option>
+											<option value="TO" data-reactid=".0.1.2.0.0.2.$223">Tonga</option>
+											<option value="TT" data-reactid=".0.1.2.0.0.2.$224">Trinidad and Tobago
+											</option>
+											<option value="TN" data-reactid=".0.1.2.0.0.2.$225">Tunisia</option>
+											<option value="TR" data-reactid=".0.1.2.0.0.2.$226">Turkey</option>
+											<option value="TM" data-reactid=".0.1.2.0.0.2.$227">Turkmenistan</option>
+											<option value="TC" data-reactid=".0.1.2.0.0.2.$228">Turks and Caicos Islands
+											</option>
+											<option value="TV" data-reactid=".0.1.2.0.0.2.$229">Tuvalu</option>
+											<option value="UG" data-reactid=".0.1.2.0.0.2.$230">Uganda</option>
+											<option value="UA" data-reactid=".0.1.2.0.0.2.$231">Ukraine</option>
+											<option value="AE" data-reactid=".0.1.2.0.0.2.$232">United Arab Emirates
+											</option>
+											<option value="GB" data-reactid=".0.1.2.0.0.2.$233">United Kingdom</option>
+											<option value="UM" data-reactid=".0.1.2.0.0.2.$234">United States Minor
+												Outlying Islands</option>
+											<option value="US" data-reactid=".0.1.2.0.0.2.$235">United States of America
+											</option>
+											<option value="UY" data-reactid=".0.1.2.0.0.2.$236">Uruguay</option>
+											<option value="UZ" data-reactid=".0.1.2.0.0.2.$237">Uzbekistan</option>
+											<option value="VU" data-reactid=".0.1.2.0.0.2.$238">Vanuatu</option>
+											<option value="VE" data-reactid=".0.1.2.0.0.2.$239">Venezuela</option>
+											<option value="VN" data-reactid=".0.1.2.0.0.2.$240">Vietnam</option>
+											<option value="VG" data-reactid=".0.1.2.0.0.2.$241">Virgin Islands (British)
+											</option>
+											<option value="VI" data-reactid=".0.1.2.0.0.2.$242">Virgin Islands (U.S.)
+											</option>
+											<option value="WF" data-reactid=".0.1.2.0.0.2.$243">Wallis and Futuna
+											</option>
+											<option value="EH" data-reactid=".0.1.2.0.0.2.$244">Western Sahara</option>
+											<option value="YE" data-reactid=".0.1.2.0.0.2.$245">Yemen</option>
+											<option value="ZM" data-reactid=".0.1.2.0.0.2.$246">Zambia</option>
+											<option value="ZW" data-reactid=".0.1.2.0.0.2.$247">Zimbabwe</option>
+										</select>
+										<div class="shipping" data-reactid=".0.1.2.0.0.3"></div><span
+											data-reactid=".0.1.2.0.0.4"><span class="error-text"
+												data-reactid=".0.1.2.0.0.4.0"></span><input placeholder="邮编"
+												class="zip-calculate " data-reactid=".0.1.2.0.0.4.1"><button
+												class="btn btn-primary zip-button"
+												data-reactid=".0.1.2.0.0.4.2">Enter</button></span><span
+											data-reactid=".0.1.2.0.0.5"><select class="rush-fulfillment"
+												data-reactid=".0.1.2.0.0.5.0">
+												<option value="0" data-reactid=".0.1.2.0.0.5.0.0">韵达快递</option>
+												<option value="0" data-reactid=".0.1.2.0.0.5.0.$3">申通快递</option>
+												<option value="0" data-reactid=".0.1.2.0.0.5.0.$2">顺丰快递</option>
+											</select>
+											<p class="rush-notice" data-reactid=".0.1.2.0.0.5.2">顺丰快递加收20元</p>
+										</span>
+										<p data-reactid=".0.1.2.0.0.6"><label data-reactid=".0.1.2.0.0.6.0">Subtotal:
+											</label><span data-reactid=".0.1.2.0.0.6.1">？</span><span
+												data-reactid=".0.1.2.0.0.6.2">0.00</span></p>
+										<p data-reactid=".0.1.2.0.0.8"><label data-reactid=".0.1.2.0.0.8.0">运费:
+											</label><span data-reactid=".0.1.2.0.0.8.1">？</span><span
+												data-reactid=".0.1.2.0.0.8.2">0.00</span></p>
+										<p data-reactid=".0.1.2.0.0.9"><label data-reactid=".0.1.2.0.0.9.0">顺丰:
+											</label><span data-reactid=".0.1.2.0.0.9.1">？</span><span
+												data-reactid=".0.1.2.0.0.9.2">0.00</span></p>
+										<p data-reactid=".0.1.2.0.0.b"><label data-reactid=".0.1.2.0.0.b.0">含税:
+											</label><span data-reactid=".0.1.2.0.0.b.1">？</span><span
+												data-reactid=".0.1.2.0.0.b.2">0.00</span></p>
+										<p class="price-total" data-reactid=".0.1.2.0.0.c"><label
+												data-reactid=".0.1.2.0.0.c.0">总计:</label><span
+												data-reactid=".0.1.2.0.0.c.1">？</span><span
+												data-reactid=".0.1.2.0.0.c.2">0.00</span><span
+												data-reactid=".0.1.2.0.0.c.3"> 元</span></p><button
+											class="btn btn-create-design " data-reactid=".0.1.2.0.0.e">开始画图</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="footer-push"></div>
+		</div>
+
+
+
+
+
+	<script type="text/javascript">
+		let strings = [{
+					"id": 3,
+					"name": "White",
+					"slug": "white",
+					"color": "#ffffff",
+					"premium": false,
+					"attribute_id": 61
+				}, {
+					"id": 4,
+					"name": "Yellow",
+					"slug": "yellow",
+					"color": "#eae81a",
+					"premium": true,
+					"attribute_id": 62
+				}, {
+					"id": 1,
+					"name": "Red",
+					"slug": "red",
+					"color": "#ff3333",
+					"premium": true,
+					"attribute_id": 48
+				}, {
+					"id": 10,
+					"name": "Purple",
+					"slug": "purple",
+					"color": "#6c55aa",
+					"premium": true,
+					"attribute_id": 73
+				}, {
+					"id": 8,
+					"name": "PInk",
+					"slug": "pink",
+					"color": "#ff80c0",
+					"premium": true,
+					"attribute_id": 71
+				}, {
+					"id": 9,
+					"name": "Orange",
+					"slug": "orange",
+					"color": "#ff8000",
+					"premium": true,
+					"attribute_id": 72
+				}, {
+					"id": 7,
+					"name": "Green",
+					"slug": "green",
+					"color": "#008000",
+					"premium": true,
+					"attribute_id": 64
+				}, {
+					"id": 6,
+					"name": "Brown",
+					"slug": "brown",
+					"color": "#b66924",
+					"premium": true,
+					"attribute_id": 65
+				}, {
+					"id": 2,
+					"name": "Blue",
+					"slug": "blue",
+					"color": "#128fff",
+					"premium": true,
+					"attribute_id": 49
+				}, {
+					"id": 5,
+					"name": "Black",
+					"slug": "black",
+					"color": "#000000",
+					"premium": true,
+					"attribute_id": 63
+				}]
+		let colorSelectDom = document.querySelector('#colorSelect')
+		console.log(colorSelectDom);
+		colorSelectDom.addEventListener('change', function(e) {
+			console.log(strings[colorSelectDom.selectedIndex]);
+			document.querySelector('.color-pallete').style.background = strings[colorSelectDom.selectedIndex].color
+		})
+	</script>
+	</body>
+</html>

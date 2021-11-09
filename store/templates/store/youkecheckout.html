@@ -1,0 +1,437 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <link href="/static/alert/css/component.css" rel="stylesheet">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+
+
+                <div id="shipping-info">
+                    <hr>
+                    <p>Email:<input id="email" name="email" onblur="update_email_fuc()" placeholder="邮箱/Email"
+                                    type="text" value="">
+                        <a href="javascript:;">修改邮箱/Change</a>
+                    </p>
+                    <hr/>
+                    <div class="am-modal am-modal-no-btn" id="doc-modal-1">
+                        <div class="add-dress">
+                            <!--标题 -->
+                            <div class="am-cf am-padding">
+                                <div class="ui checkbox">
+                                    <p><input name="ma50" type="radio" id="sh" onclick="check_radio()">
+                                        <label>送货上门/Standard Delivery</label></p>
+                                </div>
+                                <div class="ui checkbox">
+                                    <form id="form_uinfo" style="padding: 10px;padding-left: 20px;"
+                                          class="am-form am-form-horizontal" method="post" action="/editadd/">
+
+                                        <div class="am-form-group">
+                                            <label for="user-name" class="am-form-label">收货人/receiver</label>
+                                            <input type="hidden" value="" name="did">
+                                            <div class="am-form-content">
+                                                <input type="text" id="receiver" name="receiver"
+                                                       placeholder="收货人/receiver" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="am-form-group">
+                                            <label for="user-name" class="am-form-label">公司名/company</label>
+                                            <input type="hidden" value="" name="did">
+                                            <div class="am-form-content">
+                                                <input type="text" id="company" name="company" placeholder="公司名/company"
+                                                       value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="am-form-group">
+                                            <label for="user-phone" class="am-form-label">手机号码/TEL</label>
+                                            <div class="am-form-content">
+                                                <input id="phone" name="phone" placeholder="手机号码/TEL" type="text"
+                                                       value="">
+                                            </div>
+                                        </div>
+
+                                        <!--<div class="am-form-group">
+                                            <label for="user-phone" class="am-form-label">邮箱/Email</label>
+                                            <div class="am-form-content">
+                                                <input id="email" name="email" placeholder="邮箱/Email" type="text"
+                                                       value="">
+                                            </div>
+                                        </div>-->
+
+                                        <div class="am-form-group">
+                                            <label for="user-name" class="am-form-label">邮编/postcode</label>
+                                            <div class="am-form-content">
+                                                <input type="text" id="postcode" name="postcode" placeholder="邮编"
+                                                       value="">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="am-form-group">
+                                            <label for="user-address" class="am-form-label">所在地/Address</label>
+                                            <div class="am-form-content address">
+                                                <select id="state" required data-am-selected name="state">
+                                                    <option value="United Kingdom">United Kingdom</option>
+                                                    <option value="France" selected>France</option>
+                                                </select>
+                                                <select id="county" required data-am-selected name="county">
+                                                    <option value="West Yorkshire">West Yorkshire</option>
+                                                    <option value="West Midlands" selected>West Midlands</option>
+                                                </select>
+                                                <select id="city" required data-am-selected name="city">
+                                                    <option value="Leeds">Leeds</option>
+                                                    <option value="Bradford" selected>Bradford</option>
+                                                </select>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="am-form-group">
+                                            <label for="user-intro" class="am-form-label">详细地址/Detailed Address</label>
+                                            <div class="am-form-content">
+                                                <textarea class rows="3" id="addinfo" placeholder="输入详细地址"
+                                                          name="addinfo"></textarea>
+                                                <small>100字以内写出你的详细地址Detailed Address...</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="am-form-group">
+                                            <div class="am-u-sm-9 am-u-sm-push-3">
+                                                <input id="save" type="button" class="am-btn am-btn-danger"
+                                                       value="Save">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="ui checkbox">
+                                    <p><input name="ma50" type="radio" id="zt" onclick="check_radio()">
+                                        <label>自提取货/Picking up</label></p>
+                                    <label id="ztaddress">Unit 3, Thorncliffe Park, Thorncliffe Road, Bradford, BD8
+                                        7DD</label>
+                                </div>
+
+
+                            </div>
+                            <hr>
+
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+                <input onclick="pay()" id="form-button" class="btn btn-success btn-block" type="button"
+                       value="付款/Pay">
+            </div>
+
+            <br>
+            <div class="box-element" id="payment-info">
+                <small>Paypal Options</small>
+                <!--<button id="make-payment">Make payment</button>-->
+                <div id="paypal-button-container"></div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+                <hr>
+                <h3>Order Summary</h3>
+                <hr>
+                {% for item in items %}
+                    <div class="cart-row">
+                        <div style="flex:2"><img class="row-image" src="{{ item.img }}"></div>
+                        <div style="flex:2"><p>{{ item.name }}</p></div>
+                        <div style="flex:1"><p>£ {{ item.price|floatformat:2 }}</p></div>
+                        <div style="flex:1"><p>x {{ item.quantity }}</p></div>
+                    </div>
+                {% endfor %}
+                <h5>Items: {{ itemstotal }}  </h5>
+                <h5>Subtotal: £<span id="jiage">{{ totalprice|floatformat:2 }}</span></h5>
+                <h5>Shipping: £<span id="yunfei">{{ yunfei|floatformat:2 }}</span></h5>
+                <h5>VAT Included: £<span id="shui">{{ shui|floatformat:2 }}</span></h5>
+                <h5>Total: £<span id="amount">{{ amount|floatformat:2 }}</span></h5>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/jquery.cookie.js' %}" type="text/javascript"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+    <script>
+        $(document).ready(function () {
+            $("#payment-info").hide()
+
+            var youkedata = JSON.parse($.cookie('youkedata'))
+            $("#sh").attr("checked", "checked")
+            youkedata['get_way'] = "送货上门"
+            $.cookie('youkedata', JSON.stringify(youkedata), {expires: 1, path: '/'})
+            $("#email").val(youkedata["email"])
+            $("#receiver").val(youkedata["receiver"])
+            $("#company").val(youkedata["company"])
+            $("#phone").val(youkedata["phone"])
+            $("#email").val(youkedata["email"])
+            $("#postcode").val(youkedata["postcode"])
+            $("#nation").val(youkedata["nation"])
+            $("#province").val(youkedata["province"])
+            $("#city").val(youkedata["city"])
+            $("#addinfo").val(youkedata["addinfo"])
+        })
+
+
+        function update_email_fuc() {
+            var email_v = $("#email").val()
+            youkedata['email'] = email_v
+            $.cookie('youkedata', JSON.stringify(youkedata), {expires: 1, path: '/'})
+        }           //获取email的值，以及youkedata，变成json的字符串，然后存到缓存里
+
+        $("#ztaddress").hide()
+        var yunfeitemp = '0.00'
+        var ztaddress = ""
+
+        var now_check_radio = "1"
+
+        function check_radio() {
+            var radio = $('input:radio[name="ma50"]:checked');
+            if (radio[0].id == 'sh' && now_check_radio == "2") {
+                now_check_radio = "1"
+                $("#form_uinfo").show()
+                $("#yunfei").text(yunfeitemp)
+                $("#ztaddress").hide()
+                ztaddress = ""
+                youkedata['get_way'] = "送货上门"
+                $("#amount").text(parseFloat($("#amount").text()) + parseFloat(yunfeitemp))
+            } else if (radio[0].id != 'sh' && now_check_radio == "1") {
+                now_check_radio = "2"
+                $("#form_uinfo").hide()
+                yunfeitemp = $("#yunfei").text()
+                ztaddress = $("#ztaddress").text()
+                $("#yunfei").text('0.00')
+                $("#ztaddress").show()
+                youkedata['get_way'] = "自取提货"
+                $("#amount").text(parseFloat($("#amount").text()) - parseFloat(yunfeitemp))
+            }
+            $.cookie('youkedata', JSON.stringify(youkedata), {expires: 1, path: '/'})
+        }           //检测单选框有没有被中，有选中的话就执行第一个语句，没选中的话执行else下面的语句。
+
+        $("#save").click(function () {
+            var receiver = $("#receiver").val()
+            var company = $("#company").val()
+            var phone = $("#phone").val()
+            var email = $("#email").val()
+            var postcode = $("#postcode").val()
+            var nation = $("#nation").val()
+            var province = $("#province").val()
+            var city = $("#city").val()
+            var addinfo = $("#addinfo").val()
+
+            $.cookie('youkedata', JSON.stringify({
+                receiver: receiver,
+                company: company,
+                phone: phone,
+                email: email,
+                postcode: postcode,
+                nation: nation,
+                province: province,
+                city: city,
+                addinfo: addinfo
+            }), {expires: 1, path: '/'})
+        })          //把228行以前的数据都保存在228行下面的缓存里
+
+
+        //支付相关
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: $("#amount").text()
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    tijiao()
+                    //alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+
+        function pay() {
+            $("#payment-info").show()
+        }
+
+        function tijiao() {
+            var youkedata = JSON.parse($.cookie('youkedata'))
+            youkedata['Items'] ={{ itemstotal }};
+            youkedata['TotalPrices'] ={{ totalprice|floatformat:2 }};
+            youkedata['Yunfei'] ={{ yunfei|floatformat:2 }};
+            youkedata['Shui'] ={{ shui|floatformat:2 }};
+            youkedata['Amount'] ={{ amount|floatformat:2 }};
+            youkedata['ItemsJson'] ={{ items|safe }};
+            console.log(youkedata)
+            $.ajax({
+                type: 'post',
+                url: '/youke_pay/',
+                data: {
+                    json_data: JSON.stringify(youkedata)
+                },
+                dataType: 'json',
+                success: function (r) {
+                    console.log(r)
+                    if (r.code == 0) {
+                        $.cookie('youkedata', "", {expires: 1, path: '/'})
+                        $.cookie('cart', "", {expires: 1, path: '/'})
+                        location.href = "/"
+                    } else {
+                        alert(r.msg)
+                    }
+
+                }
+            })
+        }
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        var shipping = '{{order.shipping}}'
+        var total = '{{order.get_cart_total}}'
+
+        if (shipping == 'False') {
+            document.getElementById('shipping-info').innerHTML = ''
+        }
+
+
+        if (shipping == 'False' && user != 'AnonymousUser') {
+            //Hide entire form if user is logged in and shipping is false
+            document.getElementById('form-wrapper').classList.add("hidden");
+            //Show payment if logged in user wants to buy an item that does not require shipping
+            document.getElementById('payment-info').classList.remove("hidden");
+        }
+
+        var form = document.getElementById('form')
+        //调用支付模块
+        // form.addEventListener('submit', function (e) {
+        //
+        //     e.preventDefault()
+        //     console.log('Form Submitted...')
+        //     document.getElementById('form-button').classList.add("hidden");
+        //     document.getElementById('payment-info').classList.remove("hidden");
+        // })
+
+        function getzhifu() {
+            name = fm.name.value;
+            email = fm.email.value;
+            address = fm.address.value;
+            city = fm.city.value;
+            state = fm.state.value;
+            zipcode = fm.zipcode.value;
+            country = fm.country.value;
+            data = {
+                'name': fm.name.value,
+                'email': fm.email.value,
+                'address': fm.address.value,
+                'city': fm.city.value,
+                'state': fm.state.value,
+                'zipcode': fm.zipcode.value,
+                'country': fm.country.value
+            }
+            //异步提交到后端存储到session内   再跳转到订单结算页面。343行开始到358行从前端当前页面获取这些数据。
+            $.post('/getaddinfo/', JSON.stringify({"data": data}), function (results) {
+                if (results.data == 'OK')
+                    location.reload()
+                else
+                    alert('系统错误,请重试')
+            }, "json");
+        }
+
+        /*
+        document.getElementById('make-payment').addEventListener('click', function(e){
+           submitFormData()
+        })
+        */
+
+
+        //游客结算：checkout.html点击付款按钮，直接触发并显示paypal付款按钮但是不提交任何数据，然后客户付款之后，才触发submitFormData这个javascript把数据传送到后台并且改变订单状态。结合checkout.html里面的submitFormData和views.py里面的def processOrder，游客付款之后自动清空购物车，并且跳转到主页，而且如果这个游客一直使用这个邮箱来购买的话，那么我们不用创建新的游客账户，统一放到这个邮箱。并且如果他用这个邮箱创建账户的话，那么那个账户可以查询到所有他游客时期的订单。
+
+
+        function submitFormData() {
+            console.log('Payment button clicked')
+
+            var userFormData = {
+                'name': null,
+                'email': null,
+                'total': total,
+            }
+
+            var shippingInfo = {
+                'address': null,
+                'city': null,
+                'state': null,
+                'zipcode': null,
+            }
+
+            if (shipping != 'False') {
+                shippingInfo.address = form.address.value
+                shippingInfo.city = form.city.value
+                shippingInfo.state = form.state.value
+                shippingInfo.zipcode = form.zipcode.value
+            }
+
+            if (user == 'AnonymousUser') {
+                userFormData.name = form.name.value
+                userFormData.email = form.email.value
+            }
+
+            console.log('Shipping Info:', shippingInfo)
+            console.log('User Info:', userFormData)
+
+            var url = "/process_order/"
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'applicaiton/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({'form': userFormData, 'shipping': shippingInfo}),
+
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Success:', data);
+                    alert('Transaction completed');
+
+                    cart = {}
+                    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
+                    window.location.href = "{% url 'store' %}"
+
+                })
+        }
+    </script>
+
+
+    <script src="/static/alert/js/classie.js"></script>
+{% endblock content %}
+

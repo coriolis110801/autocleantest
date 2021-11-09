@@ -1,0 +1,189 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=no">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<title></title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+</head>
+<body>
+
+
+
+<!--banner开始-->
+
+<div class="ChuChenHB_banner" aos="fade-up" aos-once="true" aos-delay="300">
+
+    <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="{% static 'images/banner1.png' %}"></div>
+      <div class="swiper-slide"><img src="{% static 'images/banner1.png' %}"></div>
+      <div class="swiper-slide"><img src="{% static 'images/banner1.png' %}"></div>
+      <div class="swiper-slide"><img src="{% static 'images/banner1.png' %}"></div>
+    </div>
+     <!-- Add Arrows -->
+    <div class="swiper-button-next next_banner"></div>
+    <div class="swiper-button-prev pre_banner"></div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <script src="{% static 'js/swiper.min.js' %}"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+	  loop:true,
+	  autoplay: {
+                delay: 3000,
+            },
+      pagination: {
+        el: '.swiper-pagination',
+		clickable: true,
+
+      },
+
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+
+    });
+  </script>
+
+</div>
+<!--banner结束-->
+
+<!--新品上架开始-->
+
+ <div class="xpsj_pro">
+  <h3>Most popular</h3>
+
+  <div class="xpsj_main">
+
+    <div class="swiper-container spsj_gd">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/p1.jpg' %}"><h4>Plastic vacuum cleaner 90L</h4><p>£95.00</p></a></div>
+      </div>
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/p1.png' %}"><h4>Plastic vacuum cleaner 90L</h4><p>£300.00</p></a></div>
+      </div>
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/p1.jpg' %}"><h4>Wash mitts</h4><p>£5.00</p></a></div>
+      </div>
+
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/p2.jpg' %}"><h4>Blue window cloths</h4><p>£10.00</p></a></div>
+      </div>
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/p1.jpg' %}"><h4>Frogchem Cream Plastic Cleaner</h4><p>£15.00</p></a></div>
+      </div>
+
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/cart.png' %}"><h4>Frogchem Cream Plastic Cleaner</h4><p>£15.00</p></a></div>
+      </div>
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/cart.png' %}"><h4>Frogchem Cream Plastic Cleaner</h4><p>£15.00</p></a></div>
+      </div>
+
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/cart.png' %}"><h4>Frogchem Cream Plastic Cleaner</h4><p>£15.00</p></a></div>
+      </div>
+
+
+<div class="swiper-slide">
+       <div class="spsj_tp"><a href="cpxq.html"><img src="{% static 'images/cart.png' %}"><h4>Frogchem Cream Plastic Cleaner</h4><p>£15.00</p></a></div>
+      </div>
+
+
+
+    </div>
+    <!-- Add Pagination -->
+    <!-- Add Arrows -->
+
+  </div>
+ <div class="diw_px">
+    <div class="swiper-button-next xpsj_pre"></div>
+    <div class="swiper-button-prev xpsj_next"></div>
+ </div>
+
+<!--<style>-->
+<!--.xpsj_next{ background:url(images/xpsj_pre.png) no-repeat; width:44px; height:44px; left:-64px;}-->
+<!--.xpsj_pre{ background:url(images/xpsj_next.png) no-repeat; width:44px; height:44px; right:-64px;}-->
+<!--.xpsj_next:hover{ background:url(images/z1.png) no-repeat; width:44px; height:44px; left:-64px;}-->
+<!--.xpsj_pre:hover{ background:url(images/y1.png) no-repeat; width:44px; height:44px; right:-64px;}-->
+<!--</style>-->
+
+
+	  <!-- Swiper JS -->
+
+  <!-- Initialize Swiper -->
+	<script>
+    var swiper = new Swiper('.spsj_gd', {
+	//  autoplay: {
+//                delay: 3000,
+//            },
+      slidesPerView: 3,
+      spaceBetween:30,
+      slidesPerGroup: 1,
+      //loop: true,
+
+      loopFillGroupWithBlank: true,
+      navigation: {
+        nextEl: '.xpsj_pre',
+        prevEl: '.xpsj_next',
+      },
+    });
+    </script>
+
+
+
+
+  </div>
+
+ </div>
+<!--新品上架结束-->
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+
+{% endblock content %}
+
+</body>
+</html>

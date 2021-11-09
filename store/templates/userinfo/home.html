@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Django Captcha</h3>
+    {% if messages %}
+    {% for message in messages %}
+    <div>{{ message }}</div>
+1
+    {% endfor %}
+    {% endif %}
+
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.captcha }}
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

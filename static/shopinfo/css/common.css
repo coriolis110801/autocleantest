@@ -1,0 +1,287 @@
+/*清除元素默认的内外边距  */
+* {
+    margin: 0;
+    padding: 0
+}
+/*让所有斜体 不倾斜*/
+em,
+i {
+    font-style: normal;
+}
+/*去掉列表前面的小点*/
+li {
+    list-style: none;
+}
+/*图片没有边框   去掉图片底侧的空白缝隙*/
+img {
+    border: 0;  /*ie6*/
+    vertical-align: middle;
+}
+/*让button 按钮 变成小手*/
+button {
+    cursor: pointer;
+}
+/*取消链接的下划线*/
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e33333;
+}
+
+button,
+input {
+    font-family: 'Microsoft YaHei', 'Heiti SC', tahoma, arial, 'Hiragino Sans GB', \\5B8B\4F53, sans-serif;
+}
+
+body {
+    background-color: #fff;
+    font: 12px/1.5 'Microsoft YaHei', 'Heiti SC', tahoma, arial, 'Hiragino Sans GB', \\5B8B\4F53, sans-serif;
+    color: #666
+}
+
+.hide,
+.none {
+    display: none;
+}
+/*清除浮动*/
+.clearfix:after {
+    visibility: hidden;
+    clear: both;
+    display: block;
+    content: ".";
+    height: 0
+}
+
+.clearfix {
+    *zoom: 1
+}
+
+
+/*公共样式*/
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+
+ .fr .icomoon{
+ 	font-family: 'icomoon';
+ 	font-size: 16px;
+ 	line-height: 26px;
+ }
+ .car{
+ 	font-family: 'icomoon';
+ 	color: #da5555;
+ }
+ .arrow{
+ 	font-family: 'icomoon';
+ 	margin-left: 5px;
+ }
+/*版心--页面中间部分*/
+.w{
+	width: 1200px;
+	margin: 0 auto;
+}
+.style-red{
+	color:#c81623;
+}
+.spacer{
+	width: 1px;
+	height: 12px;
+	background-color: #666;
+	margin: 9px 12px 0;
+}
+/*顶部快捷导航*/
+.shortcut{
+	height: 31px;
+	background-color: #f1f1f1;
+	line-height: 31px;
+
+}
+.shortcut li{
+	float: left;
+}
+
+.logo{
+	position: absolute;
+	top: 25px;
+	left: 0px;
+	width:175px;
+	height: 56px;
+}
+.logo a{
+	display: block;
+	width: 175px;
+	height: 56px;
+	background:url(../images/logo.png) no-repeat;
+	font-size: 0;
+}
+.search{
+	position: absolute;
+	top: 25px;
+	left: 348px;
+}
+
+
+.hotwords{
+	position: absolute;
+	top: 65px;
+	left: 348px;
+}
+.hotwords a{
+
+	margin: 0 10px;
+}
+.shopcar{
+	position: absolute;
+	top: 25px;
+	right: 64px;
+	width: 138px;
+	height: 34px;
+	border: 1px solid #dfdfdf;
+	background-color: #f7f7f7;
+	line-height: 34px;
+	text-align: center;
+}
+.count{
+	position: absolute;
+	top: -5px;
+	left: 100px;
+	background-color: #e60012;
+	height: 14px;
+    line-height: 14px;
+    padding:0 3px;
+    border-radius: 7px 7px 7px 0;
+}
+.nav{
+	height: 45px;
+	border-bottom: 2px solid #b1191a;
+}
+
+.dropdown{
+	width: 209px;
+	height:45px：
+
+}
+.dropdown .dt{
+	width: 100%;
+	background-color:#b1191a;
+	font-size: 16px;
+	color: #fff;
+	text-align: center;
+	line-height: 45px;
+}
+.dropdown .dd{
+	height: 465px;
+	background-color: #c81623;
+	margin-top: 2px;
+}
+.menu_item{
+	height: 31px;
+	line-height: 31px;
+	margin-left: 1px;
+	padding: 0px 10px;
+	transition: all 0.5s;
+}
+.menu_item:hover{
+	background-color: #fff;
+	padding-left: 20px;
+}
+.menu_item:hover a{
+	color: #c81623;
+}
+.menu_item a {
+	font-size: 14px;
+	color: #fff;
+}
+.menu_item i{
+	float: right;
+	font-family: 'icomoon';
+	font-size: 18px;
+	color: #fff;
+}
+.navitems {
+	margin-left: 10px;
+}
+.navitems li{
+	float: left;
+}
+.navitems li a{
+	display: block;
+	height: 45px;
+	padding: 0 25px;
+	line-height: 45px;
+	font-size: 16px;
+}
+.footer{
+	height: 100px;
+	background-color: #f5f5f5;
+	margin-top: 30px;
+	
+	padding-top: 30px;
+}
+.mod_service{
+	height: 79px;
+	border-bottom:1px solid #ccc;
+}
+.mod_service li{
+	float: left;
+	width: 240px;
+	height: 79px;
+}
+.mod-service-icon{
+	float: left;
+	width: 50px;
+	height: 50px;
+	background:url(../images/icons.png) no-repeat;
+	margin-left: 35px;
+}
+.mod_service_zheng{
+	background-position:-253px -3px;
+}
+.mod_service_tit{
+	float: left;
+	margin-left:5px; 
+}
+.mod_service_tit h5{
+	margin: 5px 0;
+}
+.mod_service_kuai{
+	background-position: -255px -54px;
+}
+.mod_service_bao{
+	background-position: -257px -105px;
+}
+
+.mod_help{
+	height: 187px;
+	border-bottom: 1px solid #ccc;
+}
+.mod_help_item{
+	float: left;
+	width: 150px;
+	padding: 20px 0 0 50px;
+}
+.mod_help_item dt{
+	height: 25px;
+	font-size: 16px;
+}
+.mod_help_item dd{
+	height: 22px;
+}
+.mod_help_app dt,.mod_help_app p{
+	padding-left: 15px;
+}
+.mod_help_app img{
+	margin: 7px 0;
+} 
+.mod_copyright{
+	text-align: center;
+}
+.mod_copyright_links{
+	margin: 20px 0 15px 0;
+}

@@ -1,0 +1,113 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Orders</h5>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <tr>
+                        <th class="col-warning">
+                            <span class="nbsp">&nbsp;</span>
+                        </th>
+                        <th class="col-artwork">
+                            <span class="nbsp">Artwork</span>
+                        </th>
+                        <th class="col-id">
+                            <span>Order ID</span>
+                        </th>
+                        <th class="col-id">
+                            <span>Name</span>
+                        </th>
+                        <th class="col-status">
+                            <span>Created</span>
+                        </th>
+
+                        <th class="col-actions">
+                            <span>Actions</span>
+                        </th>
+                    </tr>
+
+                    {% for order in orders %}
+                        <tr>
+                            <td class="col-warning">
+
+                            </td>
+                            <td class="col-artwork">
+                                <div class="col-content">
+                                    <a href="#" data-toggle="modal" data-target="#artwork-{{ order.id }}">
+                                        <img src="{{ order.product.imageURL }}" alt="front artwork" height="50">
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="col-id">
+                                <div class="col-content">
+
+                                    {{ order.id }}
+
+                                </div>
+                            </td>
+                            <td class="col-id">
+                                <input id="zhi_{{ order.id }}" class="col-content" onblur="updatename({{ order.id }},{{ order.product.id }})"
+                                       value=" {{ order.product.name }}"/>
+                                <input type="button" onclick="updatename({{ order.id }},{{ order.product.id }})"
+                                       value="Edit">
+                            </td>
+                            <td class="col-date">
+                                <div class="col-content">
+                                    {{ order.date_created }}
+                                </div>
+                            </td>
+                            <td class="col-actions">
+                                <div class="col-content">
+                                    <button class="btn btn-primary btn-complete"
+                                            onclick="document.location.href='/biaoge/?pk={{ order.product.choosepk }}&oid={{ order.id }}'">
+                                        RE-ORDER
+                                    </button>
+                                    <img width="30" height="30" src="/assets/images/delete-icon.png"
+                                         onclick="deleteOrder('{{ order.id }}')">
+                                    <div id="tip{{ order.id }}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        function deleteOrder(order_id) {
+            $.post('/delete_order/' + order_id + '/', {}, (result) => {
+                const a = document.getElementById('tip' + order_id)
+                location.href = '/view_order/'
+            })
+        }
+
+        function updatename(orderid, pid) {
+            $.ajax({
+                url: "/updateproductname/",
+                type: 'post',
+                data: {
+                    pid: pid,
+                    name: $("#zhi_" + orderid).val()
+                },
+                dataType: 'json',
+                success: function (r) {
+                    if (r.code != 0) {
+                        alert('修改失败')
+                    }
+                }
+            })
+        }
+
+    </script>
+
+
+{% endblock %}

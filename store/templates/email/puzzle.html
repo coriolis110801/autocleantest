@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <a href="/index/">BACK</a>
+    <div class="center">
+        <form action="/checkPuzzle" method="post">
+            {% csrf_token %}
+            {%for puzzle in puzz%}
+            <div class="form-group">
+                <h4>{{forloop.counter}}. {{puzzle.ptitle}}{% if puzzle.photot %}<img
+                       <img class='pcuo' width="300" height="300" src="{{ puzzle.photot }}" alt="">{% endif %}</h4><br>
+            <div class="ui checkbox">
+                <p><input name="ma50" type="checkbox" id="zt">
+                    <label id="ztaddress">提醒</label></p>
+                <div class="col_{{puzzle.id}} " style="display:none;">
+                    <input id="pnote1" style="width:1200px;" class="col-content" onblur="updatename"
+                           value="{{ puzzle.pnote }}"/>
+                    <input type="button" onclick="updatename('{{puzzle.id}}')"
+                           value="Edit">
+                </div>
+            </div>
+                <h5><input type="radio" name="{{puzzle.id}}" id="A{{puzzle.id}}" value="A"><label for="A{{puzzle.id}}">A.{{puzzle.pa}}</label>{% if puzzle.photoa %}<img
+                       class='pcuo' width="100" height="100" src="{{ puzzle.photoa }}" alt="">{% endif %}</h5><br>
+                <h5><input type="radio" name="{{puzzle.id}}" id="B{{puzzle.id}}" value="B"><label for="B{{puzzle.id}}">B.{{puzzle.pb}}</label>{% if puzzle.photob %}<img
+                       class='pcuo' width="100" height="100" src="{{ puzzle.photob }}" alt="">{% endif %}</h5><br>
+                <h5><input type="radio" name="{{puzzle.id}}" id="C{{puzzle.id}}" value="C"><label for="C{{puzzle.id}}">C.{{puzzle.pc}}</label>{% if puzzle.photoc %}<img
+                       class='pcuo' width="100" height="100" src="{{ puzzle.photoc }}" alt="">{% endif %}</h5><br>
+                <h5><input type="radio" name="{{puzzle.id}}" id="D{{puzzle.id}}" value="D"><label for="D{{puzzle.id}}">D.{{puzzle.pd}}</label>{% if puzzle.photod %}<img
+                       class='pcuo' width="100" height="100" src="{{ puzzle.photod }}" alt="">{% endif %}</h5><br>
+            </div><br>
+
+            {%endfor%}
+            <div>
+                <input type="submit" class="btn btn-primary form-control" value="提交">
+            </div>
+        </form>
+    </div>    
+</body>
+</html>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+
+
+        $('#zt').click(function () {
+       // alert(1)
+            if ($(this).is(":checked")) {
+                $(this).parent().parent().find("div").show()
+                //$("#ztaddress").show()
+            } else {
+                $(this).parent().parent().find("div").hide()
+
+            }
+        });
+        function updatename(id){
+            $.ajax({
+                url:"/app/updatename/",
+                type:'post',
+                dataType:"json",
+                data:{
+                id:id,
+                pnote:$('#pnote1').val()
+                },
+                success:function(res){
+                    window.location.reload();
+                }
+            })
+        }
+
+
+$("img").filter(function() {
+    return ($(this).attr('src')==('/media/media/media/media/cart.jpg'))
+}).hide();
+
+$("img").filter(function() {
+    return ($(this).attr('src')==('/media/media/media/cart.jpg'))
+}).hide();
+    </script>

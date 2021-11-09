@@ -1,0 +1,543 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <link href="/static/alert/css/component.css" rel="stylesheet">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+
+
+                <div id="shipping-info">
+                    <hr>
+                    <p>Shipping Information:
+                        <a href="/address">Manage my address</a>
+                    </p>
+                    <hr>
+                    {% if is_login %}
+                        {% for i in addinfo %}
+                            <div class="form-field" style="width:550px">
+                                {% if i.status == 1 %}
+                                    <label><input name="Frutal" type="radio" value="{{ i.id }}" id="button" checked/>
+                                        {{ i.country }}{{ i.county }}{{ i.city }} {{ i.address }}({{ i.uname }}收){{ i.phone }}
+                                        <button id='btn-edit' data-id="{{ i.id }}" style="cursor: pointer;color: black">
+                                            Edit
+                                        </button>
+                                    </label>
+                                {% else %}
+                                    <label><input name="Frutal" type="radio" value="{{ i.id }}" id="button"/>
+                                        {{ i.country }}{{ i.county }}{{ i.city }} {{ i.address }}({{ i.uname }}收){{ i.phone }}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="/checkoutsetdefault?id={{ i.id }}"
+                                           style="cursor: pointer;color: coral">Set Default</a>
+                                    </label>
+                                {% endif %}
+                            </div>
+                            <br>
+                        {% endfor %}
+                    {% endif %}
+                    <a href="javascript:;" style="display: none;" class="md-trigger btn btn-primary btn-sm"
+                       data-modal="modal-1">使用新地址</a>
+
+
+                    <!--<div class="md-modal md-effect-1" id="modal-1">
+                        <div class="md-content">
+                            <h3>新增收货地址</h3>
+
+                            <div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="name"
+                                           placeholder="Name..">
+                                </div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="email"
+                                           placeholder="Phone..">
+                                </div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="address"
+                                           placeholder="Address..">
+                                </div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="city"
+                                           placeholder="City..">
+                                </div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="state"
+                                           placeholder="State..">
+                                </div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="zipcode"
+                                           placeholder="Zip code..">
+                                </div>
+                                <div class="form-field">
+                                    <input required class="form-control" type="text" name="country"
+                                           placeholder="Zip code..">
+                                </div>
+                                <button class="btn-sm btn-primary" onclick="getzhifu()">确定</button>
+                            </div>
+                        </div>
+                    </div>-->
+                    <hr/>
+                    <div class="am-modal am-modal-no-btn" id="doc-modal-1">
+                        <div class="add-dress">
+                            <!--标题 -->
+                            <div class="am-cf am-padding">
+
+                                <div id="show" class="am-fl am-cf btn btn-outline-dark"><strong class="am-text-dang
+                                er am-text-lg">ADD New Address</strong>
+                                </div>
+                            </div>
+                            <hr>
+
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+                <input onclick="tijiao()" id="form-button" class="btn btn-success btn-block" type="button"
+                       value="Submit Order">
+            </div>
+
+            <br>
+            <div class="box-element" id="payment-info">
+                <small>Paypal Options</small>
+                <!--<button id="make-payment">Make payment</button>-->
+                <div id="paypal-button-container"></div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+                <hr>
+                <h3>Order Summary</h3>
+                <hr>
+                {% for item in items %}
+                    <div class="cart-row">
+                        <div style="flex:2"><img class="row-image" src="{{ item.img }}"></div>
+                        <div style="flex:2"><p>{{ item.name }}</p></div>
+                        <div style="flex:1"><p>£ {{ item.price|floatformat:2 }}</p></div>
+                        <div style="flex:1"><p>x {{ item.quantity }}</p></div>
+                    </div>
+                {% endfor %}
+                <h5>Items: {{ cartItems }}  </h5>
+                <h5>Subtotal: £<span id="jiage">{{ totalprice|floatformat:2 }}</span></h5>
+                <h5>Shipping: £<span id="yunfei">{{ yunfei|floatformat:2 }}</span></h5>
+                <h5>VAT Included: £<span id="shui">{{ shui|floatformat:2 }}</span></h5>
+                <h5>Total: £<span id="amount">{{ amount|floatformat:2 }}</span></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui checkbox">
+        <p><input name="ma50" type="checkbox" id="zt">
+            <label>Picking Up</label></p>
+        <label id="ztaddress">Unit 3, Thorncliffe Park, Thorncliffe Road, Bradford, BD8 7DD</label>
+    </div>
+    <!--编辑地址-->
+    <div id="box2"
+         style="background:white;display:none;width:400px;height:400px;top:50%;left:50%;margin-top: -200px;margin-left: -200px;position: fixed;">
+
+        <button id="close" class="close btn btn-outline-dark">close</button>
+        <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
+            <form class="am-form am-form-horizontal" method="post" action="/address2/">
+                <input id="hid" type="text" hidden="hidden" name="id">
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">*Receiver</label>
+                    <div class="am-form-content">
+                        <input required type="text" id="user-name11" name="name"
+                               placeholder="收货人"
+                               value="{{ info.uname }}">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">Company</label>
+                    <div class="am-form-content">
+                        <input type="text" id="user-name22" name="gs" placeholder="Company">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-form-label">*TEL</label>
+                    <div class="am-form-content">
+                        <input required id="user-phone33" name="phone" placeholder="手机号必填"
+                               type="text">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">*Post Code</label>
+                    <div class="am-form-content">
+                        <input required type="text" id="user-name44" name="postcode"
+                               placeholder="Post Code">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-address" class="am-form-label">*Address</label>
+                    <div class="am-form-content address">
+                        <select id="state" required data-am-selected name="state">
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="France" selected>France</option>
+                        </select>
+                        <select id="county" required data-am-selected name="county">
+                            <option value="West Yorkshire">West Yorkshire</option>
+                            <option value="West Midlands" selected>West Midlands</option>
+                        </select>
+                        <select id="city" required data-am-selected name="city">
+                            <option value="Leeds">Leeds</option>
+                            <option value="Bradford" selected>Bradford</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-intro" class="am-form-label">*Detailed Address</label>
+                    <div class="am-form-content">
+                                                <textarea required class rows="3" id="user-intro55"
+                                                          placeholder="Detailed Address"
+                                                          name="addinfo"></textarea>
+                        <small>100words max for your Detailed Address...</small>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-form-content">
+                        <input name="moren" type="checkbox" checked="checked" value="1"/> Set Default
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <input type="submit" class="am-btn am-btn-danger" value="Save">
+                        <a href="javascript: void(0)" class="close am-btn am-btn-danger"
+                           data-am-modal-close>Cancel</a>
+                        <label style="color:red;">{{ msg }}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!--新增地址-->
+    <div id="box"
+         style="background:white;display:none;width:400px;height:400px;top:50%;left:50%;margin-top: -200px;margin-left: -200px;position: fixed;">
+
+        <button class="close btn btn-outline-dark">close</button>
+        <div class="am-u-md-12 am-u-lg-8" style="margin-top: 20px;">
+            <form class="am-form am-form-horizontal" method="post" action="/checkout/address/">
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">*Receiver</label>
+                    <div class="am-form-content">
+                        <input required type="text" id="user-name1" name="name"
+                               placeholder="Receiver">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">Company</label>
+                    <div class="am-form-content">
+                        <input type="text" id="user-name2" name="gs" placeholder="Company"
+                               value="">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-phone" class="am-form-label">*TEL</label>
+                    <div class="am-form-content">
+                        <input required id="user-phone" name="phone" placeholder="手机号必填"
+                               type="text">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-name" class="am-form-label">*Post Code</label>
+                    <div class="am-form-content">
+                        <input required type="text" id="user-name" name="postcode"
+                               placeholder="Post Code">
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-address" class="am-form-label">*Address</label>
+                    <div class="am-form-content address">
+                        <select required data-am-selected name="state">
+                            <option value="中国">中国</option>
+                            <option value="美国" selected>美国</option>
+                        </select>
+                        <select required data-am-selected name="county">
+                            <option value="温州市">温州市</option>
+                            <option value="武汉市" selected>武汉市</option>
+                        </select>
+                        <select required data-am-selected name="city">
+                            <option value="瑞安区">瑞安区</option>
+                            <option value="洪山区" selected>洪山区</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <label for="user-intro" class="am-form-label">*Detailed Address</label>
+                    <div class="am-form-content">
+                                                <textarea required class rows="3" id="user-intro"
+                                                          placeholder="Type Detailed Address"
+                                                          name="addinfo"></textarea>
+                        <small>100words max for Detailed Address...</small>
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-form-content">
+                        <input name="moren" type="checkbox" value="1"/> 设为默认收货地址
+                    </div>
+                </div>
+                <div class="am-form-group">
+                    <div class="am-u-sm-9 am-u-sm-push-3">
+                        <input type="submit" class="am-btn am-btn-danger" value="Save">
+                        <a href="javascript: void(0)" class="close am-btn am-btn-danger"
+                           data-am-modal-close>Cancel</a>
+                        <label style="color:red;">{{ msg }}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+    <script>
+
+        $("#payment-info").hide()
+        //带美元符号的都是jquery,第一个括号里面的是html标签id，后边是动作
+
+        $("#show").click(function () {
+            $("#box").show();
+        })
+        $(".close").click(function () {
+            $("#box").hide();
+            $("#box2").hide();
+
+        })
+        $("#btn-edit").click(function () {
+            var id = $(this).attr('data-id');
+            $("#hid").val($("#button").attr('value'))
+            $.ajax({
+                type: 'get',
+                url: '/adduserorder_query/',
+                data: {
+                    id: id,
+
+                },
+                dataType: 'json',
+                success: function (r) {
+                    if (r.code == 0) {
+                        console.log(r);
+                        $("#user-name11").val(r.data.uname)
+                        $("#user-name22").val(r.data.gs)
+                        $("#user-phone33").val(r.data.phone)
+                        $("#user-name44").val(r.data.postcode)
+                        $("#user-intro55").val(r.data.address)
+                        $("#state").val(r.data.country)
+                        $("#city").val(r.data.city)
+                        $("#county").val(r.data.county)
+                        //$("#state").val(r.data.state)
+                        $("#box2").show();
+                    } else {
+                        alert(r.msg)
+                    }
+
+                }
+            })
+        })
+
+        $("#ztaddress").hide()
+        var yunfeitemp = '0.00'
+        var ztaddress = ""
+        $('#zt').click(function () {
+            if (this.checked) {
+                yunfeitemp = $("#yunfei").text()
+                ztaddress = $("#ztaddress").text()
+                $("#yunfei").text('0.00')
+                $("#ztaddress").show()
+            } else {
+                $("#yunfei").text(yunfeitemp)
+                $("#ztaddress").hide()
+                ztaddress = ""
+            }
+        });
+        var order_id = null
+
+        function tijiao() {
+            var addressID = $("input[name='Frutal']:checked").val();
+            var jiage = $("#jiage").text()
+            var amount = $("#amount").text()
+            var yunfei = $("#yunfei").text()
+            var shui = $("#shui").text()            //ajax需要寄生在一个函数里
+            $.ajax({
+                type: 'post',               //  请求方式
+                url: '/adduserorder/',      //url 必须要给ajax一个路由
+                data: {
+                    addressid: addressID,
+                    jiage: amount,
+                    yunfei: yunfei,
+                    shui: shui,
+                    ztaddress: ztaddress
+                },                              //想给python后台传的数据
+                dataType: 'json',
+                async: false,                   //是否是异步，现在是否
+                success: function (r) {
+                    if (r.code == 0) {
+                        $("#payment-info").show();
+                        order_id = r.data
+                        //location.href = "/myhome/"
+                    } else {
+                        alert(r.msg)
+                    }                           //后台返回给前端的请求成功，
+
+                }
+            })
+        }
+
+
+        $(document).ready(function () {
+            //判断是否选中radio，没有则选中第一个。document是dom操作。动态加载：预加急，拉屎之前要准备纸。radio是单选框。
+            let inputs = document.getElementsByName("Frutal");
+            var ischecked = false
+            var first_redio = null;
+            for (var i = 0; i < inputs.length; i++) {
+                if (i == 0) {
+                    first_redio = inputs[i]
+                }
+                if (inputs[i].checked) {
+                    ischecked = true
+                }
+            }
+            if (!ischecked) {
+                first_redio.checked = true;
+            }
+
+        })
+
+        //支付相关
+        paypal.Buttons({
+
+            // Set up the transaction创建订单
+            createOrder: function (data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: $("#amount").text()
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    $.ajax({
+                        type: 'post',
+                        url: '/updateuserorder/',
+                        data: {
+                            order_id: order_id
+                        },
+                        dataType: 'json',
+                        async: false,
+                        success: function (r) {
+                            alert(r.msg)
+                            if (r.code == 0) {
+                                location.href = "/myhome/"
+                            }
+                        }
+                    })
+                    //alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+
+
+    </script>
+
+    <!--<script type="text/javascript">
+        var rm = document.getElementsByName("Frutal")
+        var flag = false;
+        for (var i = 0; i < rm.length; i++) {
+            if (rm[i].checked) {
+                flag = false;
+                break;
+            }
+        }
+        if (!flag) {
+            rm[0].checked = true;
+        }
+    </script>
+
+
+
+
+
+    <script type="text/javascript">
+        var shipping = '{{order.shipping}}'
+        var total = '{{order.get_cart_total}}'
+
+        if (shipping == 'False') {
+            document.getElementById('shipping-info').innerHTML = ''
+        }
+
+
+        if (shipping == 'False' && user != 'AnonymousUser') {
+            //Hide entire form if user is logged in and shipping is false
+            document.getElementById('form-wrapper').classList.add("hidden");
+            //Show payment if logged in user wants to buy an item that does not require shipping
+            document.getElementById('payment-info').classList.remove("hidden");
+        }
+
+        var form = document.getElementById('form')
+        //调用支付模块
+        // form.addEventListener('submit', function (e) {
+        //
+        //     e.preventDefault()
+        //     console.log('Form Submitted...')
+        //     document.getElementById('form-button').classList.add("hidden");
+        //     document.getElementById('payment-info').classList.remove("hidden");
+        // })
+
+        function getzhifu() {
+            name = fm.name.value;
+            email = fm.email.value;
+            address = fm.address.value;
+            city = fm.city.value;
+            state = fm.state.value;
+            zipcode = fm.zipcode.value;
+            country = fm.country.value;
+            data = {
+                'name': fm.name.value,
+                'email': fm.email.value,
+                'address': fm.address.value,
+                'city': fm.city.value,
+                'state': fm.state.value,
+                'zipcode': fm.zipcode.value,
+                'country': fm.country.value
+            }
+            //异步提交到后端存储到session内   再跳转到订单结算页面
+            $.post('/getaddinfo/', JSON.stringify({"data": data}), function (results) {
+                if (results.data == 'OK')
+                    location.reload()
+                else
+                    alert('系统错误,请重试')
+            }, "json");
+        }
+
+
+
+
+    </script>
+
+
+    <script src="/static/alert/js/classie.js"></script>-->
+
+
+{% endblock content %}
+

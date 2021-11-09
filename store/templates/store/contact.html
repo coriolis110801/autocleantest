@@ -1,0 +1,64 @@
+{% load static %}
+
+<section class="page-section">
+    <div class="container">
+        <!-- Contact Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Us</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-envelope"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+            <div class="text-center text-secondary mb-0">
+                <p>
+                    Customer shopping experience is important to us. We do our best to deliver high quality porducts and services to our customers. Cost, customer satisfaction and efficiency are our main focus.
+                </p>
+                <p>
+                    The company operates from Bradford and will cover most area of the North West of England. If you need help, please ring us or send us an Email or use our online-chat service.
+                </p>
+                <p>
+                    Head office is open from 9am to 6pm Monday to Friday, and our team will be happy to advise on our products. You can also send us an email at <a href="mailto:autoclean@gmail.com">autoclean@gmail.com</a>
+                </p>
+            </div>
+
+        <!-- Contact Section Form-->
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+
+                {% if success %}
+                <div class="alert alert-success" role="alert">
+                    Your message was sent! Check your inbox for a response.
+                </div>
+                {% endif %}
+
+                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.-->
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+
+                    {% for field in form %}
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% for error in field.errors %}
+                            <p class="help-block text-danger">{{error}}</p>
+                            {% endfor %} 
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <br />
+                    <div class="form-group"><button class="btn hs-bg-primary btn-xl text-white" type="submit">Send</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

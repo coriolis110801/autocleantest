@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Image Editor</title>
+    <link rel="stylesheet" href="{% static 'Draw/styles.min.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'Draw/drawstyle.css' %}">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="{% static 'Draw/a.js' %}"></script>
+
+    <style>
+        body,
+        html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .preview-close:hover {
+            color: #333 !important;
+        }
+
+        <!--
+        隔离-- >
+        .la-ball-spin-clockwise,
+        .la-ball-spin-clockwise > div {
+            position: relative;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        .la-ball-spin-clockwise {
+            display: block;
+            font-size: 0;
+            color: #1976d2
+        }
+
+        .la-ball-spin-clockwise.la-dark {
+            color: #333
+        }
+
+        .la-ball-spin-clockwise > div {
+            display: inline-block;
+            float: none;
+            background-color: currentColor;
+            border: 0 solid currentColor
+        }
+
+        .la-ball-spin-clockwise {
+            width: 32px;
+            height: 32px
+        }
+
+        .la-ball-spin-clockwise > div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            margin-top: -4px;
+            margin-left: -4px;
+            border-radius: 100%;
+            -webkit-animation: ball-spin-clockwise 1s infinite ease-in-out;
+            -moz-animation: ball-spin-clockwise 1s infinite ease-in-out;
+            -o-animation: ball-spin-clockwise 1s infinite ease-in-out;
+            animation: ball-spin-clockwise 1s infinite ease-in-out
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(1) {
+            top: 5%;
+            left: 50%;
+            -webkit-animation-delay: -.875s;
+            -moz-animation-delay: -.875s;
+            -o-animation-delay: -.875s;
+            animation-delay: -.875s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(2) {
+            top: 18.1801948466%;
+            left: 81.8198051534%;
+            -webkit-animation-delay: -.75s;
+            -moz-animation-delay: -.75s;
+            -o-animation-delay: -.75s;
+            animation-delay: -.75s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(3) {
+            top: 50%;
+            left: 95%;
+            -webkit-animation-delay: -.625s;
+            -moz-animation-delay: -.625s;
+            -o-animation-delay: -.625s;
+            animation-delay: -.625s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(4) {
+            top: 81.8198051534%;
+            left: 81.8198051534%;
+            -webkit-animation-delay: -.5s;
+            -moz-animation-delay: -.5s;
+            -o-animation-delay: -.5s;
+            animation-delay: -.5s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(5) {
+            top: 94.9999999966%;
+            left: 50.0000000005%;
+            -webkit-animation-delay: -.375s;
+            -moz-animation-delay: -.375s;
+            -o-animation-delay: -.375s;
+            animation-delay: -.375s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(6) {
+            top: 81.8198046966%;
+            left: 18.1801949248%;
+            -webkit-animation-delay: -.25s;
+            -moz-animation-delay: -.25s;
+            -o-animation-delay: -.25s;
+            animation-delay: -.25s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(7) {
+            top: 49.9999750815%;
+            left: 5.0000051215%;
+            -webkit-animation-delay: -.125s;
+            -moz-animation-delay: -.125s;
+            -o-animation-delay: -.125s;
+            animation-delay: -.125s
+        }
+
+        .la-ball-spin-clockwise > div:nth-child(8) {
+            top: 18.179464974%;
+            left: 18.1803700518%;
+            -webkit-animation-delay: 0s;
+            -moz-animation-delay: 0s;
+            -o-animation-delay: 0s;
+            animation-delay: 0s
+        }
+
+        .la-ball-spin-clockwise.la-sm {
+            width: 16px;
+            height: 16px
+        }
+
+        .la-ball-spin-clockwise.la-sm > div {
+            width: 4px;
+            height: 4px;
+            margin-top: -2px;
+            margin-left: -2px
+        }
+
+        .la-ball-spin-clockwise.la-2x {
+            width: 64px;
+            height: 64px
+        }
+
+        .la-ball-spin-clockwise.la-2x > div {
+            width: 16px;
+            height: 16px;
+            margin-top: -8px;
+            margin-left: -8px
+        }
+
+        .la-ball-spin-clockwise.la-3x {
+            width: 96px;
+            height: 96px
+        }
+
+        .la-ball-spin-clockwise.la-3x > div {
+            width: 24px;
+            height: 24px;
+            margin-top: -12px;
+            margin-left: -12px
+        }
+
+        @-webkit-keyframes ball-spin-clockwise {
+
+            0%,
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1)
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            80% {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0)
+            }
+        }
+
+        @-moz-keyframes ball-spin-clockwise {
+
+            0%,
+            100% {
+                opacity: 1;
+                -moz-transform: scale(1);
+                transform: scale(1)
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            80% {
+                opacity: 0;
+                -moz-transform: scale(0);
+                transform: scale(0)
+            }
+        }
+
+        @-o-keyframes ball-spin-clockwise {
+
+            0%,
+            100% {
+                opacity: 1;
+                -o-transform: scale(1);
+                transform: scale(1)
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            80% {
+                opacity: 0;
+                -o-transform: scale(0);
+                transform: scale(0)
+            }
+        }
+
+        @keyframes ball-spin-clockwise {
+
+            0%,
+            100% {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                -moz-transform: scale(1);
+                -o-transform: scale(1);
+                transform: scale(1)
+            }
+
+            20% {
+                opacity: 1
+            }
+
+            80% {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                -moz-transform: scale(0);
+                -o-transform: scale(0);
+                transform: scale(0)
+            }
+        }
+
+
+        .preview__header {
+            font-size: 12px;
+            height: 54px;
+            background-color: #262626;
+            z-index: 100;
+            line-height: 54px;
+            margin-bottom: 1px;
+        }
+
+        .e-btn--3d.-color-primary {
+            -webkit-box-shadow: 0 2px 0 #6f9a37;
+            box-shadow: 0 2px 0 #6f9a37;
+            position: relative;
+        }
+
+        .e-btn.-color-primary,
+        .-color-primary.e-btn--3d,
+        .-color-primary.e-btn--outline {
+            background-color: #82b440;
+        }
+
+        .e-btn--3d {
+            -webkit-box-shadow: 0 2px 0 #545454;
+            box-shadow: 0 2px 0 #545454;
+            position: relative;
+        }
+
+        .e-btn.-size-s,
+        .-size-s.e-btn--3d,
+        .-size-s.e-btn--outline,
+        .e-btn,
+        .e-btn--3d,
+        .e-btn--outline {
+            font-size: 14px;
+            padding: 5px 20px;
+            line-height: 1.5;
+        }
+
+        .e-btn.-color-default,
+        .-color-default.e-btn--3d,
+        .-color-default.e-btn--outline,
+        .e-btn,
+        .e-btn--3d,
+        .e-btn--outline {
+            background-color: gray;
+            color: white;
+        }
+
+        .e-btn,
+        .e-btn--3d,
+        .e-btn--outline {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            display: inline-block;
+            margin: 0;
+            border: none;
+            border-radius: 4px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .preview__action--buy{
+            position: relative;
+        }
+
+        #front{
+            position: absolute;
+            background: #fec009;
+            color: #fff;
+            left: 50%;
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+        }
+        #rear{
+            position: absolute;
+            background: #85c8d1;
+            color: #fff;
+            right: 50%;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+        }
+        #front,#rear{
+            box-shadow: none;
+            border-radius: 10px;
+            font-weight: bold;
+            top: 12px;
+            height: 32px;
+            line-height: 32px;
+            padding: 0 20px;
+            text-decoration: none;
+        }
+        #endbtn{
+            position: absolute;
+            top: 11px;
+            right: 0;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<div id="preview-wrap" onclick="$(this).hide();" style="display: none;">
+    <div style="position: fixed; top: 0; left: 0;right:0;bottom:0;z-index: 9999;display: flex; justify-content: center;align-items: center;">
+        <div onclick="window.event.cancelBubble = true"
+             style="background: #fff;width: 800px;box-shadow: 0 5px 15px rgb(0 0 0 / 50%);">
+            <div style="border-bottom: 1px solid #e5e5e5;padding: 15px;text-align: center;">
+                <div style="display: inline-block;">预览</div>
+                <span class="preview-close" style="float:right;cursor:pointer;color: #e5e5e5;"
+                      onclick="$('#preview-wrap').hide()">x</span>
+            </div>
+            <div style="clear: both;"></div>
+            <img id="testdiv" style="width: 100%;height: 400px"></img>
+            <div style="border-top: 1px solid #e5e5e5;padding: 15px;display: flex;justify-content: center;">
+                <button style="background:#7ed321;color:#fff;font-size: 14px;margin-left: auto;border:none;padding: 6px 20px;"
+                        onclick="$('#preview-wrap').hide()">回到设计
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="card-wrap" onclick="$(this).hide();" style="display: none;">
+    <div style="position: fixed; top: 0; left: 0;right:0;bottom:0;z-index: 9999;display: flex; justify-content: center;align-items: center;">
+        <div onclick="window.event.cancelBubble = true"
+             style="background: #fff;width: 800px;box-shadow: 0 5px 15px rgb(0 0 0 / 50%);">
+            <div style="border-bottom: 1px solid #e5e5e5;padding: 15px;text-align: center;">
+                <div style="display: inline-block;">ADD TO CART</div>
+                <span class="card-close" style="float:right;cursor:pointer;color: #e5e5e5;"
+                      onclick="$('#card-wrap').hide()">x</span>
+            </div>
+            <img id="addtocarddiv" style="width: 100%;height: 400px"></img>
+            <div style="clear: both"></div>
+            <div style="border-top: 1px solid #e5e5e5;padding: 15px;display: flex;justify-content: center;">
+                <button style="background:#1bb7ea;color:#fff;font-size: 14px;border:none;padding: 6px 20px;"
+                        onclick="$('#card-wrap').hide()">Return to Design
+                </button>
+                <button style="background:#7ed321;color:#fff;font-size: 14px;margin-left: auto;border:none;padding: 6px 20px;"
+                        onclick="upload() && $('#card-wrap').hide()">Continue Add To Cart
+                </button>
+                <span id="bt-shop"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--什么是global spinner-->
+
+<div class="preview__header" data-view="ctaHeader" data-item-id="10721475">
+  <div id="js-preview__actions" class="preview__actions">
+    <div class="preview__action--buy">
+    <a href="#">
+        <img src="{% static 'images/autosqueak.jpg' %}" alt="Girl in a jacket" width="180" height="50">
+    </a>
+    <a class="header-buy-now e-btn--3d -color-primary" href="#" id="front">Front Design</a>
+    <a class="header-buy-now e-btn--3d -color-primary" href="#" id="rear">Rear Design</a>
+    <a class="header-buy-now e-btn--3d -color-primary" href="#" id="endbtn">加入购物车</a>
+  </div>
+</div>
+</div>
+<pixie-editor>
+    <div class="global-spinner">
+        <div class="la-ball-spin-clockwise la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+</pixie-editor>
+<script src="{% static 'js/jquery-1.7.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'Draw/scripts.min.js' %}"></script>
+<script src="{% static 'js/jq.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}" type="text/javascript"></script>
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<script>
+
+    function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getToken('csrftoken')
+
+
+    setTimeout(function () {
+        var spinner = document.querySelector('.global-spinner');
+        if (spinner) spinner.style.display = 'flex';
+    }, 50);
+
+    function saveimg(b64) {
+        $.ajax({
+            type: 'post',
+            url: '/zfpicsave/',
+            data: {
+                b64: b64
+            },
+            success: function (res) {
+                console.log("1", res)
+            }
+        })
+    }
+
+    var user = '{{request.user}}'
+    var cart = JSON.parse($.cookie('cart'))
+    var productname = $.cookie('productname')
+
+    var imgName = "{{ order.product.name }}"
+    if (imgName == "") {
+        imgName = 'Untitled'
+    }
+    //var pixieUrl = 'https://coriolis123-butt-bucket.s3.eu-west-2.amazonaws.com', //配置域名
+    var pixieUrl = 'https://auto-clean.herokuapp.com', //配置域名
+    //var pixieUrl = 'http://127.0.0.1:8000', //配置域名
+        cW = 1278,	//初始画布宽高
+        cH = 723,
+
+        imgArr = [
+            {
+                url: 'images/init.jpg',  //配置显示照片
+                thumbnail: 'images/init.jpg',
+            },
+        ];
+
+    var imgBase64Front = '';
+    var imgBase64Back = '';
+
+    var kb = "";
+
+    var historyFront = null;
+    var historyBack = null;
+
+    var towimgbase64data = "";
+
+    var isz = true //是否正面
+
+    var c1 = null
+    var c2 = null
+
+
+    $(document).ready(function () {
+
+            $('#front').on('click', function () {
+                 yybg(pixie)
+                isz = true
+                pixie.getTool('history').add("item_f", "icon")
+                var state = pixie.getState();
+                if (sessionStorage.getItem('name') !== 'state1') {
+                    sessionStorage.setItem('state2', state)
+                    // $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[7].disabled = true;
+                    // $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[8].disabled = false;
+                    pixie.loadState(sessionStorage.getItem('state1'))
+                    sessionStorage.setItem('name', 'state1')
+                }
+            });
+
+            $('#rear').on('click', function () {
+                yybg(pixie)
+                isz = false
+                pixie.getTool('history').add("item_z", "icon")
+                var state = pixie.getState();
+                if (sessionStorage.getItem('name') === 'state1') {
+                    sessionStorage.setItem('name', 'state2')
+                    sessionStorage.setItem('state1', state)
+                    // $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[8].disabled = true;
+                    // $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[7].disabled = false;
+                    if (sessionStorage.getItem('state2')) {
+                        pixie.loadState(sessionStorage.getItem('state2'))
+                    } else {
+                        if (!sessionStorage.getItem('reset')) {
+                            sessionStorage.setItem('reset', JSON.stringify(pixie.getTool('history').getAllItems()[0]))
+                        }
+                        pixie.loadState(pixie.getTool('history').getAllItems()[0])
+                    }
+                }
+            });
+
+            $('#endbtn').on('click', function () {
+                //var c = document.getElementById("pixie-canvas");
+                //var ctx = c.getContext("2d");
+                //var image_z = new Image();
+                //var image_f = new Image();
+                //image.src = c.toDataURL("image/png");
+                //image_z.src = "data:image/png;base64," + imgBase64Front
+                //image_f.src = "data:image/png;base64," + imgBase64Back
+                //$(image_z).css({'width': '300px', 'height': '210px'})
+                //$(image_f).css({'width': '300px', 'height': '210px'})
+                //if (imgBase64Front != "") {
+                //    $('#card').empty().append(image_z);
+                //}
+                //if (imgBase64Back != "") {
+                //    $('#card_2').empty().append(image_f);
+                //}
+                yybg(pixie)
+                drawAndShareImage('addtocarddiv')
+                $('#card-wrap').show();
+                //imgBase64 = c.toDataURL("image/png").substring(22);
+            });
+
+            var pixie = new Pixie({
+                // 初始化画图插件
+                watermarkText: 'Pixie Demo',
+                baseUrl:"/static/Draw",
+                image: "{% static 'Draw/assets/images/' %}" + productname + '.png',
+                tools: {
+                    resize: {
+                        maxWidth: 360,
+                        maxHeight: 360
+                    },
+                    export: {
+                        defaultFormat: 'png', //png, jpeg or json
+                        defaultName: 'image', //default name for downloaded photo file
+                        defaultQuality: 1, //works with jpeg only, 0 to 1
+                    },
+                    stickers: {
+                        replaceDefault: true,
+                        items: [
+                            {
+                                name: 'emoticons',
+                                list: ['happy', 'sad', 'angry'],
+                                type: 'svg',
+                                thumbnailUrl: 'images/stickers/emoticons/happy.svg'
+                            },
+                            {
+                                name: 'xin',
+                                list: ['ma', 'niu'],
+                                type: 'svg',
+                                thumbnailUrl: 'images/stickers/xin/niu.svg'
+                            },
+                            {
+                                name: 'socialmedia',
+                                list: ['Facebook', 'Instagram1', 'Instagram2', 'Instagram3', 'Snapchat'],
+                                type: 'svg',
+                                thumbnailUrl: 'images/stickers/socialmedia/Facebook.svg'
+                            },
+
+                            {
+                                name: 'icon',
+                                list: ['email1', 'email2', 'home1', 'home2', 'phone1', 'phone2', 'phone3'],
+                                type: 'svg',
+                                thumbnailUrl: 'images/stickers/icon/home1.svg'
+                            },
+                        ]
+                    }
+                },
+                ui: {
+                    allowZoom: true,
+                    toolbar: {
+                        replaceDefaultLeftItems: true,
+                        replaceDefaultCenterItems: true,
+                        replaceDefaultRightItems: true,
+                        leftItems: [
+                            {
+                                type: 'button',
+                                showInCompactMode: true,
+                                text: imgName,
+                                icon: 'edit',
+                                action: function (event) {
+                                    window.event.cancelBubble = true;
+                                    const ev = event || window.event,
+                                        targetNode = ev.target,
+                                        inputWrap = $('#input-wrap')[0];
+                                    let t = bt = nameNode = '';
+                                    $(t).parents('toolbar').css("position", 'relative')
+                                    if ($(targetNode).hasClass('mat-button')) {
+                                        t = $(targetNode).children('span')[0];
+                                        bt = $(targetNode)[0];
+                                    } else {
+                                        bt = $(targetNode).parents('button')[0];
+                                        t = $(bt).children('span')[0];
+                                    }
+                                    if (inputWrap) {
+                                        $(t).hide();
+                                        inputWrap.style.display = "flex";
+                                    } else {
+                                        $(t).hide();
+                                        const div = document.createElement("div");
+                                        div.setAttribute("id", "input-wrap");
+                                        div.style = "position:absolute;top:0;left:0;display:flex;align-items:center;height:70px;margin-left: 10px;";
+                                        $(div).css({
+                                            "position": "absolute",
+                                            "top": 0,
+                                            "left": '10px',
+                                            "display": 'flex',
+                                            "align-items": "center",
+                                            "height": "70px",
+                                            'background': 'transparent'
+                                        });
+                                        const input = document.createElement("input");
+                                        input.setAttribute("id", "name-image");
+                                        const bt2 = document.createElement("button");
+                                        bt2.setAttribute("id", "name-image-submit");
+                                        $(bt2).css({
+                                            'height': '34.4px',
+                                            'line-height': '16.4px',
+                                            'padding': '0 10px',
+                                            'background': '#1bb7ea',
+                                            'color': '#fff',
+                                            'border-radius': '5px'
+                                        })
+                                        bt2.innerText = '修改';
+                                        div.appendChild(input);
+                                        div.appendChild(bt2);
+                                        $(bt).after(div);
+                                        bt2.onclick = function () {
+                                            window.event.cancelBubble = true;
+                                            if (input.value) {
+                                                $(bt).find('.name').text(input.value);
+                                            }
+                                            imgName = input.value;
+                                            $(t).show();
+                                            div.style.display = "none";
+                                        };
+                                        input.onblur=function(){
+                                            window.event.cancelBubble = true;
+                                            if (input.value) {
+                                                $(bt).find('.name').text(input.value);
+                                            }
+                                            imgName = input.value;
+                                            $(t).show();
+                                            div.style.display = "none";
+                                        };
+                                    }
+                                }
+                            },
+                            {
+                                type: 'button',
+                                showInCompactMode: true,
+                                icon: 'image-fill',
+                                text: '添加图片',
+                                action: 'openOverlayImage'
+                            },
+                            {
+                                type: 'button',
+                                text: ''
+                            },
+                        ],
+                        centerItems: [
+
+
+
+                            {
+                                type: 'zoomWidget',
+                                showInCompactMode: true,
+                                condition: {'tools.zoom.allowUserZoom': true},
+                            },
+
+
+                            // 添加一个按钮用来保存图片数据，用以上传到接口
+                            //{
+                            //    type: 'button',
+                            //    text: '居中',
+                            //    action: function (e) {
+                            //        console.log(e)
+                            //console.log(pixie.get('activeObject').get())
+                            //        pixie.get('activeObject').get().center();
+                            //    }
+                            //},
+                            //{
+                            //    type: 'button',
+                            //    text: '应用变更',
+                            //    action: function () {
+                            //        yybg(pixie)
+                            //    }
+                            //},
+
+                        ],
+                        rightItems: [
+
+
+
+                            {
+                                type: 'button',
+                                icon: 'undo',
+                                action: function () {
+                                    //pixie.getTool('history').get('item_f')
+                                    pixie.getTool('history').undo()
+                                }
+                            },
+                            {
+                                type: 'button',
+                                icon: 'redo',
+                                action: function () {
+                                    pixie.getTool('history').redo()
+                                }
+                            },
+
+                            {
+                                type: 'button',
+                                text: 'Preview',
+                                icon: 'eye-fill',
+                                showInCompactMode: true,
+                                action: function () {
+                                    yybg(pixie)
+                                    if (imgBase64Front == "") {
+                                        imgBase64Front = kb
+                                    }
+                                    if (imgBase64Back == "") {
+                                        imgBase64Back = kb
+                                    }
+                                    drawAndShareImage('testdiv')
+                                    $('#preview-wrap').show();
+                                }
+                            },
+
+
+                          ]
+                    },
+                    nav: {
+                        position: 'top',
+                        replaceDefault: true,
+                        items: [
+                            {name: 'text', icon: 'text-box-custom', action: 'text'},
+                            {
+                                name: 'add-image', icon: 'image-fill', action: function () {
+                                    $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[1].click();
+                                }
+                            },
+                            {name: 'background', icon: 'background-custom', action: 'background'},
+                            {name: 'stickers', icon: 'sticker-custom', action: 'stickers'},
+                            {name: 'merge', icon: 'merge-custom', action: 'merge'},
+                            {
+                                name: 'Duplicate to Other Side', icon: 'bag-push', action: function () {
+                                    var state = pixie.getState();
+                                    if (!sessionStorage.getItem('reset')) {
+                                        sessionStorage.setItem('reset', JSON.stringify(pixie.getTool('history').getAllItems()[0]))
+                                    }
+                                    if (sessionStorage.getItem('name') === 'state1') {
+                                        sessionStorage.setItem('name', 'state2');
+                                        sessionStorage.setItem('state1', state);
+                                        $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[8].disabled = true;
+                                        $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[7].disabled = false;
+                                    } else {
+                                        sessionStorage.setItem('name', 'state1');
+                                        sessionStorage.setItem('state2', state);
+                                        $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[7].disabled = true;
+                                        $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[8].disabled = false;
+                                    }
+                                    pixie.loadState(state)
+                                }
+                            },
+                        ]
+                    },
+                    openImageDialog: {
+                        {% if edit %}
+                            show: false,
+                        {% endif %}
+                        replaceDefaultSampleImages: true,
+                        sampleImages: imgArr
+                    },
+                },
+
+
+                onLoad: function () {
+                    {% if not edit %}
+                        window.postMessage('pixieLoaded', '*');
+                        sessionStorage.setItem('reset', '')
+                        sessionStorage.setItem('state1', '')
+                        sessionStorage.setItem('state2', '')
+                        sessionStorage.setItem('s1r', '')
+                        sessionStorage.setItem('s2r', '')
+                        // var resizeTool = pixie.getTool('resize');
+                        // resizeTool.apply(400, 400);
+                        $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[1].style.display = "none";
+                        // var state = pixie.getState();
+                        // sessionStorage.setItem('state', state);
+                        console.log(sessionStorage.getItem('reset'))
+                        sessionStorage.setItem('name', 'state1');
+                        // $('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted')[7].disabled = "true";
+                        pixie.get('activeObject').on('selected', function (e) {
+                            //console.log('object has been selected');
+                            //console.log("4", e.target);
+                        });
+                        pixie.get('canvas').on('selection:created', function (e) {
+                            //console.log(e.target); // print added object to console
+                            // $(div).append('测试')
+                            // console.log(div)
+                            //yybg(pixie)
+                            //console.log("3", e.target);
+                        });
+                        pixie.get('canvas').on('before:render', function (e) {
+                            //console.log("2", e.target);
+                        });
+                        let wTip = $('#wTip');
+                        $('toolbar.ng-tns-c119-1.ng-star-inserted').append(wTip);
+                        // $(wTip).show();
+                    {% else %}
+                        const state1 = '{{ order.product.state1 | safe }}'
+                        const state2 = '{{ order.product.state2 | safe }}'
+                        pixie.loadState(state1)
+                        sessionStorage.setItem('name', 'state2');
+                        sessionStorage.setItem('state1', state1);
+
+                        sessionStorage.setItem('name', 'state1')
+                        sessionStorage.setItem('state2', state2)
+                    {% endif %}
+                    pixie.get('canvas').on('object:added', function (e) {
+                        //yybg(pixie)
+                        //console.log("1", e.target); // print added object to console
+                    });
+                    var c = document.getElementById("pixie-canvas");
+                    kb = c.toDataURL("image/png").substring(22)
+                },
+
+
+                onMainImageLoaded: function () {
+                    var resizeTool = pixie.getTool('resize');
+                    resizeTool.apply(cW, cH, false);
+                    //console.log(cW, cH);
+                }
+            });
+        }
+    );
+
+    // 上传数据的函数
+    function upload() {
+        if (imgBase64Front === '' || imgBase64Back === '') {
+            document.getElementById('bt-shop').innerHTML = '请确保正反面都应用了变更'
+            return false;
+        }
+        $.post('/upload_pic/?name=' + imgName, {
+            imgFront: imgBase64Front,
+            imgBack: imgBase64Back,
+            state1: sessionStorage.getItem('state1'),
+            state2: sessionStorage.getItem('state2'),
+            jsondata: $.cookie('jsonstr'),
+            price: $.cookie('price'),
+            total: $.cookie('total'),
+            pk:{{ pk }},
+            imgdata: towimgbase64data
+        }, (result) => {
+            //console.log(result)
+            var productId = result
+            var action = "add"
+            if (user == 'AnonymousUser') {
+                addCookieItem_d(productId, 'Default', 'Default', $.cookie('price'), 1, action)
+                //location.href = '/designer?pk={{ pk }}'
+                //location.href = '/cart/'
+            } else {
+                updateUserOrder_d(productId, 'Default', 'Default', $.cookie('price'), 1, action)
+                //location.href = '/designer?pk={{ pk }}'
+                //location.href = '/cart/'
+            }
+        })
+        return true
+    }
+
+    //两图合并
+    function drawAndShareImage(e) {
+        var canvas = document.createElement("canvas");
+        canvas.width = 800;
+        canvas.height = 254;
+        var context = canvas.getContext("2d");
+
+        context.rect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "#fff";
+        context.fill();
+
+        var myImage = new Image();
+        //image_f.src = "data:image/png;base64," + imgBase64Back
+        myImage.src = "data:image/png;base64," + imgBase64Front;
+        myImage.crossOrigin = 'Anonymous';
+
+        var base64 = canvas.toDataURL("image/png");  //"image/png" 这里注意一下
+        var img = document.getElementById(e);
+        img.setAttribute('src', base64);
+
+        myImage.onload = function () {
+            context.drawImage(myImage, 0, 0, 300, 210);
+            var myImage2 = new Image();
+            myImage2.src = "data:image/png;base64," + imgBase64Back;   //你自己本地的图片或者在线图片
+            myImage2.crossOrigin = 'Anonymous';
+
+            var base64 = canvas.toDataURL("image/png");  //"image/png" 这里注意一下
+            var img = document.getElementById(e);
+            img.setAttribute('src', base64);
+
+            myImage2.onload = function () {
+                context.drawImage(myImage2, 400, 0, 300, 210);
+
+                var base64 = canvas.toDataURL("image/png");  //"image/png" 这里注意一下
+                var img = document.getElementById(e);
+                towimgbase64data = base64
+                img.setAttribute('src', base64);
+            }
+        }
+
+    }
+
+
+    //应用变更
+    function yybg(pixie) {
+        console.log('应用自动变更')
+        var c = document.getElementById("pixie-canvas");
+        c.setAttribute("crossOrigin", 'Anonymous')
+        if (sessionStorage.getItem('name') === 'state1') {
+            // 正面
+            console.log(c.toDataURL("image/png"))
+            imgBase64Front = c.toDataURL("image/png").substring(22);
+            sessionStorage.setItem('state1', pixie.getState())
+        } else {
+            // 反面
+            console.log('dsf1ds5fdsfs')
+            imgBase64Back = c.toDataURL("image/png").substring(22);
+            sessionStorage.setItem('state2', pixie.getState())
+        }
+    }
+
+    //禁止浏览器放大缩小操作
+    window.addEventListener('mousewheel', function (event) {
+        if (event.ctrlKey === true || event.metaKey) {
+            event.preventDefault();
+        }
+    }, {passive: false});
+
+    //firefox
+    window.addEventListener('DOMMouseScroll', function (event) {
+        if (event.ctrlKey === true || event.metaKey) {
+            event.preventDefault();
+        }
+    }, {passive: false});
+
+    //============================================================================
+
+
+</script>
+</body>
+
+</html>

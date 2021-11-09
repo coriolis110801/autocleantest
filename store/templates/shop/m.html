@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="a.js"></script>
+		<style>
+			.preview__header {
+				font-size: 12px;
+				height: 54px;
+				background-color: #262626;
+				z-index: 100;
+				line-height: 54px;
+				margin-bottom: 1px;
+			}
+			
+			.e-btn--3d.-color-primary {
+				-webkit-box-shadow: 0 2px 0 #6f9a37;
+				box-shadow: 0 2px 0 #6f9a37;
+				position: relative;
+			}
+			
+			.e-btn.-color-primary,
+			.-color-primary.e-btn--3d,
+			.-color-primary.e-btn--outline {
+				background-color: #82b440;
+			}
+			
+			.e-btn--3d {
+				-webkit-box-shadow: 0 2px 0 #545454;
+				box-shadow: 0 2px 0 #545454;
+				position: relative;
+			}
+			
+			.e-btn.-size-s,
+			.-size-s.e-btn--3d,
+			.-size-s.e-btn--outline,
+			.e-btn,
+			.e-btn--3d,
+			.e-btn--outline {
+				font-size: 14px;
+				padding: 5px 20px;
+				line-height: 1.5;
+			}
+			
+			.e-btn.-color-default,
+			.-color-default.e-btn--3d,
+			.-color-default.e-btn--outline,
+			.e-btn,
+			.e-btn--3d,
+			.e-btn--outline {
+				background-color: gray;
+				color: white;
+			}
+			
+			.e-btn,
+			.e-btn--3d,
+			.e-btn--outline {
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				display: inline-block;
+				margin: 0;
+				border: none;
+				border-radius: 4px;
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				text-align: center;
+				text-decoration: none;
+				cursor: pointer;
+			}
+			.preview__action--buy{
+				position: relative;
+			}
+			
+			#front{
+				position: absolute;
+				background: #fec009;
+				color: #fff;
+				left: 50%;
+				border-top-right-radius: 0 !important;
+				border-bottom-right-radius: 0 !important;
+			}
+			#rear{
+				position: absolute;
+				background: #85c8d1;
+				color: #fff;
+				right: 50%;
+				border-top-left-radius: 0 !important;
+				border-bottom-left-radius: 0 !important;
+			}
+			#front,#rear{
+				box-shadow: none;
+				border-radius: 10px;
+				font-weight: bold;
+				top: 12px;
+				height: 32px;
+				line-height: 32px;
+				padding: 0 20px;
+				text-decoration: none;
+			}
+			#endbtn{
+				position: absolute;
+				top: 11px;
+				right: 0;
+			}
+		
+		</style>
+	</head>
+
+	<body>
+		<div class="preview__header" data-view="ctaHeader" data-item-id="10721475">
+			<div id="js-preview__actions" class="preview__actions">
+				<div class="preview__action--buy">
+					<a class="header-buy-now e-btn--3d -color-primary" href="#">名字</a>
+					<a class="" href="#" id="front">Front Design</a>
+					<a class="" href="#" id="rear">Rear Design</a>
+					<a class="header-buy-now e-btn--3d -color-primary" href="#" id="endbtn">前进</a>
+				</div>
+			</div>
+	</body>
+
+</html>

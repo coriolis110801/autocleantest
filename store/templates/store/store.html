@@ -1,0 +1,75 @@
+
+
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <h3 style="">{% if request.GET.id %}
+        {% if request.GET.id == '110801' %}
+            {% include 'store/contact.html' %}
+        {% endif %}
+        {% if request.GET.id == '3' %}
+            CHEMICAL PRODUCTS
+        {% endif %}
+        {% if request.GET.id == '4' %}
+            AIR FRESHENERS
+        {% endif %}
+        {% if request.GET.id == '5' %}
+            COMPRESSION SPRAYERS
+        {% endif %}
+        {% if request.GET.id == '6' %}
+            H/P PUMP & PARTS
+        {% endif %}
+        {% if request.GET.id == '7' %}
+            VACUUM CLEANERS
+        {% endif %}
+        {% if request.GET.id == '8' %}
+            AEROSOL PRODUCTS
+        {% endif %}
+        {% if request.GET.id == '9' %}
+            VALETING ACCESSORIES
+        {% endif %}
+        {% if request.GET.id == '10' %}
+            MIRCOFIBRE CLOTHS
+        {% endif %}
+        {% if request.GET.id == '11' %}
+            PIPE FIXING & FITTING
+        {% endif %}
+        {% if request.GET.id == '110803' %}
+            {% include 'store/zhuye.html' %}
+        {% endif %}
+        {% if request.GET.id == '110804' %}
+            {% include 'store/about.html' %}
+        {% endif %}
+        {% if request.GET.id == '110802' %}
+            {% include 'store/orders.html' %}
+        {% endif %}
+    {% endif %}
+    </h3> {# 新增 #}
+
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-4">
+                <img class="thumbnail" src="{{ product.imageURL }}">
+                <div class="box-element product">
+                    <h6><strong>{{ product.name }}</strong></h6>
+                    <hr>
+
+                    <button
+                            data-product="{{ product.id }}"
+                            data-color="{{ product.color }}"
+                            data-combo="{{ product.combo }}"
+                            data-price="{{ product.price }}"
+                            data-count=1
+                            data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart
+                    </button>
+
+                    <a class="btn btn-outline-success" href="{% url 'detail' %}?pk={{ product.pk }}">View</a>
+                    <h4 style="display: inline-block; float: right"><strong>£{{ product.price }}</strong></h4>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

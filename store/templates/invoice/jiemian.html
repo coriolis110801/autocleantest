@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <td>购买方</td>
+        <td><textarea name="" id="gmf" cols="30" rows="10"></textarea></td>
+        <td><button id="btn-gmf">重置</button></td>
+    </tr>
+    <tr>
+        <td>购买项</td>
+        <td><textarea name="" id="gmx" cols="30" rows="10"></textarea></td>
+        <td><button id="btn-gmx">重置</button></td>
+    </tr>
+    <tr>
+        <td>已付金额</td>
+        <td><textarea name="" id="yfje" cols="30" rows="10"></textarea></td>
+        <td><button id="btn-yfje">重置</button></td>
+    </tr>
+    <tr>
+        <td>备注</td>
+        <td><textarea name="" id="bz" cols="30" rows="10"></textarea></td>
+        <td><button id="btn-bz">重置</button></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><button id="tj">提交</button></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#tj").click(function(){
+
+       window.location.href='/invoice3/?gmf='+$("#gmf").val()+'&gmx='+$("#gmx").val()+'&yfje='+$("#yfje").val()+'&bz='+$("#bz").val();
+
+    })
+</script>
+</html>

@@ -1,0 +1,199 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+
+                <a class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+
+                <br>
+                <br>
+                <table class="table">
+                    <tr>
+                        <th><h5>Items: <strong id="shu"
+                                               data-shu="{{ cartItems }}">{{ cartItems }}</strong></h5>
+                        </th>
+                        <th><h5>Total:<strong id="jia" data-jia="{{ totalprice|floatformat:2 }}">
+                            £{{ totalprice|floatformat:2 }}</strong></h5></th>
+                        <th>
+                            <!--                        <a style="float:right; margin:5px;" class="btn btn-success"-->
+                            <!--                           href="{% url 'checkout' %}">Checkout</a>-->
+                            <button value="提交" onclick="xuan()" class="btn btn-success">Continue</button>
+                        </th>
+                    </tr>
+                </table>
+
+            </div>
+
+            <br>
+            <div class="box-element">
+                <div class="cart-row">
+                    <div style="flex:2"><strong>Img</strong></div>
+                    <div style="flex:2"><strong>Name</strong></div>
+                    <div style="flex:2"><strong>Color</strong></div>
+                    <div style="flex:2"><strong>Combo</strong></div>
+                    <div style="flex:1"><strong>Price</strong></div>
+                    <div style="flex:1"><strong>Quantity</strong></div>
+                    <div style="flex:1"><strong>Total</strong></div>
+                    <div style="flex:1"><strong>Action</strong></div>
+                </div>
+                {% for item in itemslist %}
+                    <div class="cart-row">
+                        <input style="display: none" name="like"
+                               value="{{ item.id }}|{{ item.quantity }}|{{ item.img }}|{{ item.name }}|{{ item.totalprice|floatformat:2 }}">
+                        <div style="flex:2"><img class="row-image" src="{{ item.img }}"></div>
+                        <div style="flex:2"><p>{{ item.name }}</p><p>{{ item.jsondata_ziti_totoal }}</p></div>
+                        <div style="flex:2"><p>{{ item.color }}</p></div>
+                        <div style="flex:2"><p>{{ item.combo }}</p></div>
+                        <div style="flex:1"><p>£{{ item.price|floatformat:2 }}</p></div>
+                        <div style="flex:1">
+                            <p class="quantity"><input type="text" value="{{ item.quantity }}" size="2"></p>
+                            <div class="quantity">
+                                <img data-product="{{ item.productid }}"
+                                     data-color="{{ item.color }}"
+                                     data-combo="{{ item.combo }}"
+                                     data-price="{{ item.price }}"
+                                     data-count="1"
+                                     data-action="add"
+                                     class="chg-quantity update-cart"
+                                     src="{% static  'images/arrow-up.png' %}">
+
+                                <img data-product="{{ item.productid }}"
+                                     data-color="{{ item.color }}"
+                                     data-combo="{{ item.combo }}"
+                                     data-price="{{ item.price }}"
+                                     data-count="1"
+                                     data-action="remove" class="chg-quantity update-cart"
+                                     src="{% static  'images/arrow-down.png' %}">
+                            </div>
+                        </div>
+                        <div style="flex:1"><p>£{{ item.totalprice|floatformat:2 }}</p></div>
+                        <div style="flex: 1">
+                            <button onclick="del({{ item.id }},{{ item.productid }},'{{ item.color }}','{{ item.combo }}',{{ item.price }})">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <script src="/static/layui/layui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function del(id, productId, color, type, price) {
+            if (user == 'AnonymousUser') {
+                delete cart[productId + "_" + color + "_" + type + "_" + price]    //这是用户双引号和下划线拼接数组中的字符串。 delete和cart是两个分开的物体，delete是功能，cart是物体
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"  //document.cookie是存缓存的意思，cookie是缓存的意思。把等号右边的东西存到缓存里。
+                location.reload();    //刷新当前页面。
+            } else {
+                $.ajax({
+                    type: 'post',
+                    url: "/update_item/",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    data: JSON.stringify({
+                        action: "delall",
+                        id: id
+                    }),
+                    beforeSend: function () {
+                        layui.layer.load();
+                    },
+                    success: function (r) {
+                        layui.layer.closeAll()
+                        location.reload()
+                    }     //如果用户是登录的，那么就把ajax的数据发送更新到后台。
+                })
+            }
+
+
+        }
+
+
+//什么是anonymousUser,anonymousUser是未登录的用户。"_" 为什么要加下划线,Document. Cookie是什么意思，这一行什么意思,Location. Reload什么作用，Ajax是不是一个后台python的def
+
+
+
+//xuan函数，根据
+        function xuan() {
+            var shu = $("#shu").data('shu')   //#是id选择器，获取shu的id，美元$符号代表jquery.整体意思是获取id为shu的目标的键入值。取了输入数量的数值。
+            var zongjia = $("#jia").data('jia') // 获取总价的数值
+            obj = document.getElementsByName("like") //找获取属性名字为like的标签
+            check_var = []
+            if (obj.length <= 0) {
+                alert('请至少选择一样商品去结算')
+                return false
+            }
+            if (user == 'AnonymousUser') {
+                alert('请先进行登录')
+                location.href = '/login?key=youke'
+                return false
+            }
+            for (var k = 0; k < obj.length; k++) {
+                check_var.push(obj[k].value);
+            }  // k++是一直加1，.push(obj[k].value)是往空数组list里面追加数值
+            data = {
+                'val': check_var,
+                'shu': shu,
+                'jia': zongjia
+            }
+            //异步提交到后端存储到session内   再跳转到订单结算页面。 同步是一个门进入大厅，异步是五个门可以进入大厅。存到用户的登录状态，session就是用户的登录状态。
+            $.post('/getshopinfo/', JSON.stringify({"data": data}), function (results) {
+                if (results.data == 'OK')  //后端如果返回ok就执行下面跳转
+                    location.href='/checkout/'
+                else
+                    alert('系统错误,请重试')
+            }, "json");
+        }
+    </script>
+
+    <script type="text/javascript">
+        //全选函数
+        function setAll() {
+            var loves = document.getElementsByName("like");
+            for (var i = 0; i < loves.length; i++) {
+                if (loves[i].checked == false)
+                    loves[i].checked = true;
+                else
+                    loves[i].checked = false;
+            }
+        }
+
+        //全不选函数
+        function setNo() {
+            var loves = document.getElementsByName("love");
+            for (var i = 0; i < loves.length; i++) {
+                loves[i].checked = false;
+            }
+        }
+
+        //反选
+        function setOthers() {
+            var loves = document.getElementsByName("like");
+            for (var i = 0; i < loves.length; i++) {
+                if (loves[i].checked == false)
+                    loves[i].checked = true;
+                else
+                    loves[i].checked = false;
+            }
+        }
+
+        //全选/全不选操作
+        function setAllNo() {
+            var box = document.getElementById("boxid");
+            var loves = document.getElementsByName("love");
+            if (box.checked == false) {
+                for (var i = 0; i < loves.length; i++) {
+                    loves[i].checked = false;
+                }
+            } else {
+                for (var i = 0; i < loves.length; i++) {
+                    loves[i].checked = true;
+                }
+            }
+        }
+    </script>
+{% endblock content %}

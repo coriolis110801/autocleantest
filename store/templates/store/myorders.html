@@ -1,0 +1,258 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="home"
+            aria-selected="true">
+            <h6>订单列表1</h6>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="profile"
+            aria-selected="false">
+            <h6>订单列表2</h6>
+        </a>
+    </li>
+</ul>
+<div class="tab-content border border-top-0" id="myTabContent" >
+    <div class="tab-pane fade show active" id="admin" role="tabpanel" aria-labelledby="home-tab">
+        <ul class="list-group list-group-flush">
+            <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Orders</h5>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <tr>
+                        <th class="col-warning">
+                            <span class="nbsp">&nbsp;</span>
+                        </th>
+                        <th class="col-artwork">
+                            <span class="nbsp">Artwork</span>
+                        </th>
+                        <th class="col-id header">
+                            <span>Order ID</span>
+                        </th>
+                        <th class="col-id header">
+                            <span>Name</span>
+                        </th>
+                        <th class="col-shape header">
+                            <span>Product</span>
+                        </th>
+                        <th class="col-status header">
+                            <span>Created</span>
+                        </th>
+                        <th class="col-date header">
+                            <span>Status</span>
+                        </th>
+                        <th class="col-date col-date-ship">
+                            <span>Note</span>
+                        </th>
+                        <th class="col-actions">
+                            <span>Actions</span>
+                        </th>
+                    </tr>
+
+                    {% for order in orders1 %}
+                        <tr>
+                            <td class="col-warning">
+
+                            </td>
+                            <td class="col-artwork">
+                                <div class="col-content">
+
+                                    <div class="modal fade artwork-modal" id="artwork-{{ order.id }}">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="width: 800; height: 600">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">×
+                                                    </button>
+                                                    <h4 class="modal-title">Artwork</h4>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </td>
+                            <td class="col-id">
+                                <div class="col-content">
+
+                                    {{ order.id }}
+
+                                </div>
+                            </td>
+                            <td class="col-id">
+                                <div class="col-content">
+
+                                    {{ order.customer.name }}
+
+                                </div>
+                            </td>
+                            <td class="col-status">
+                                <div class="col-content">
+
+                                    {{ order.product }}
+
+                                </div>
+                            </td>
+                            <td class="col-date">
+                                <div class="col-content">
+
+                                    {{ order.customer.date_created }}
+
+                                </div>
+                            </td>
+                            <td class="col-date col-date-ship">
+                                <div class="col-content">
+
+                                    {{ order.status }}
+
+                                </div>
+                            </td>
+                            <td class="col-date col-date-shipped">
+                                <div class="col-content">
+
+                                    {{ order.note }}
+
+                                </div>
+                            </td>
+                            <td class="col-actions">
+                                <div class="col-content">
+                                    <button class="btn btn-primary btn-complete"
+                                            onclick="document.location.href='/?edit=true&oid={{ order.id }}'">RE-ORDER
+                                    </button>
+                                    <div id="tip{{ order.id }}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+        </ul>
+    </div>
+    <div class="tab-pane fade" id="edit" role="tabpanel" aria-labelledby="profile-tab">
+        <ul class="list-group list-group-flush">
+            <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Orders</h5>
+            </div>
+            <div class="card card-body">
+                <table class="table">
+                    <tr>
+                        <th class="col-warning">
+                            <span class="nbsp">&nbsp;</span>
+                        </th>
+                        <th class="col-id header">
+                            <span>Order ID</span>
+                        </th>
+                        <th class="col-id header">
+                            <span>Name</span>
+                        </th>
+                        <th class="col-shape header">
+                            <span>Product</span>
+                        </th>
+                        <th class="col-status header">
+                            <span>Created</span>
+                        </th>
+                        <th class="col-date header">
+                            <span>Status</span>
+                        </th>
+                        <th class="col-date col-date-ship">
+                            <span>Note</span>
+                        </th>
+                        <th class="col-actions">
+                            <span>Actions</span>
+                        </th>
+                    </tr>
+
+                    {% for order in orders %}
+                        <tr>
+                            <td class="col-warning">
+
+                            </td>
+                            <td class="col-id">
+                                <div class="col-content">
+
+                                    {{ order.id }}
+
+                                </div>
+                            </td>
+                            <td class="col-id">
+                                <div class="col-content">
+
+                                    {{ order.customer.name }}
+
+                                </div>
+                            </td>
+                            <td class="col-status">
+                                <div class="col-content">
+
+                                    {{ order.product }}
+
+                                </div>
+                            </td>
+                            <td class="col-date">
+                                <div class="col-content">
+
+                                    {{ order.customer.date_created }}
+
+                                </div>
+                            </td>
+                            <td class="col-date col-date-ship">
+                                <div class="col-content">
+
+                                    {{ order.status }}
+
+                                </div>
+                            </td>
+                            <td class="col-date col-date-shipped">
+                                <div class="col-content">
+
+                                    {{ order.note }}
+
+                                </div>
+                            </td>
+                            <td class="col-actions">
+                                <div class="col-content">
+                                    <button class="btn btn-primary btn-complete"
+                                            onclick="document.location.href='/?edit=true&oid={{ order.id }}'">RE-ORDER
+                                    </button>
+                                    <div id="tip{{ order.id }}"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+        </ul>
+    </div>
+</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        function deleteOrder(order_id) {
+            $.post('/crm/delete_order/' + order_id + '/', {}, (result) => {
+                console.log(result)
+                const a = document.getElementById('tip' + order_id)
+                a.innerHTML = 'Deleted'
+            })
+        }
+    </script>
+
+
+{% endblock %}

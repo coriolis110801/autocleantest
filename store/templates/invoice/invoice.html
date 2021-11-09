@@ -1,0 +1,273 @@
+{% load static %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="{% static 'css/invoicestyle.css' %}">
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="{% static 'js/jquery.jqprint-0.3.js' %}"></script>
+    <title>Invoice..!</title>
+</head>
+
+<body>
+<div id="print-area">
+
+
+<input type="button" onclick="print()" value="Print">
+
+</div>
+
+</body>
+  <script>
+  function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+  $.ajax({
+    url:'/invoice2/',
+    type:'get',
+    dataType:'json',
+    data:{
+        gmf:getUrlParam('gmf'),
+        gmx:getUrlParam('gmx'),
+        yfje:getUrlParam('yfje'),
+        bz:getUrlParam('bz')
+    },
+    success:function(res){
+
+        var htmlStr = '<div class="my-5 page" size="A4">\n' +
+            '        <div class="p-5">\n' +
+            '            <section class="top-content bb d-flex justify-content-between">\n' +
+            '                <div class="logo">\n' +
+            '                    <img src="{% static 'images/logo.png' %}" alt="" class="img-fluid">\n' +
+            '                </div>\n' +
+            '                <div class="top-left">\n' +
+            '                    <div class="graphic-path">\n' +
+            '                        <p>发票</p>\n' +
+            '                    </div>\n' +
+            '                    <div class="position-relative">\n' +
+            '                        <p>发票编号 <span>{{no}}</span></p>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </section>\n' +
+            '\n' +
+            '            <section class="store-user mt-5">\n' +
+            '                <div class="col-10">\n' +
+            '                    <div class="row bb pb-3">\n' +
+            '                        <div class="col-7">\n' +
+            '                            <p>发货方,</p>\n' +
+            '                            <h2>叫什么名字</h2>\n' +
+            '                            <p class="address"> 777 Brockton Avenue, <br> Abington MA 2351, <br>Vestavia Hills AL </p>\n' +
+            '                            <div class="txn mt-2">电话: XXXXXXX</div>\n' +
+            '                        </div>\n' +
+            '                        <div class="col-5">\n' +
+            '                            <p>购买方,</p>\n' +
+            '                            <h2>{{data1.customer}}</h2>\n' +
+            '                            <p class="address"> {{data1.address}} <br> {{data1.city}} <br>{{data1.county}} </p>\n' +
+            '                            <div class="txn mt-2">电话：{{data1.phone}}</div>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                    <div class="row extra-info pt-3">\n' +
+            '                        <div class="col-7">\n' +
+            '                            <p>日期: <span>{{date}}</span></p>\n' +
+            '                            <p>订单编号: <span>#868</span></p>\n' +
+            '                        </div>\n' +
+            '                        <div class="col-5">\n' +
+            '                            <p>未付金额: <span>{{yue}}</span></p>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </section>\n' +
+            '\n' +
+            '            <section class="product-area mt-4">\n' +
+            '                <table class="table table-hover">\n' +
+            '                    <thead>\n' +
+            '                        <tr>\n' +
+            '                            <td>产品细节</td>\n' +
+            '                            <td>价格</td>\n' +
+            '                            <td>数量</td>\n' +
+            '                            <td>总计</td>\n' +
+            '                        </tr>\n' +
+            '                    </thead>\n' +
+            '                    <tbody>\n'
+    for(var ii =0;ii<res.data2.list_product[0][0].length;ii++){
+    htmlStr+=
+            '                        <tr>\n' +
+            '                            <td>\n' +
+            '                                <div class="media">\n' +
+            '                                    <img class="mr-3 img-fluid" src="'+res.data2.list_product[0][0][ii].img+'" alt="Product 01">\n' +
+            '                                    <div class="media-body">\n' +
+            '                                        <p class="mt-0 title">'+ res.data2.list_product[0][0][ii].name+'</p>\n' +
+            '                                        '+res.data2.list_product[0][0][ii].info+'\n' +
+            '                                    </div>\n' +
+            '                                </div>\n' +
+            '                            </td>\n' +
+            '                            <td>'+res.data2.list_product[0][0][ii].price+'</td>\n' +
+            '                            <td>'+ res.data2.list_product[0][0][ii].quantity+'</td>\n' +
+            '                            <td>'+ res.data2.list_product[0][0][ii].total_price+'</td>\n' +
+            '                        </tr>\n'
+            }
+            htmlStr+=
+            '                    </tbody>\n' +
+            '                </table>\n' +
+            '            </section>\n' +
+            '            <section class="balance-info">\n' +
+            '                <div class="row">\n' +
+            '                    <div class="col-8">\n' +
+            '                        <p class="m-0 font-weight-bold"> 备注: </p>\n' +
+            '                        <p>{{ bz }}</p>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-4">\n' +
+            '                        <table class="table border-0 table-hover">\n' +
+            '                            <tr>\n' +
+            '                                <td>小计:</td>\n' +
+            '                                <td>{{data2.list_total}}$</td>\n' +
+            '                            </tr>\n' +
+            '                            <tr>\n' +
+            '                                <td>税加20%:</td>\n' +
+            '                                <td>{{ data2.list_total0 }}$</td>\n' +
+            '                            </tr>\n' +
+            '                                <tr>\n' +
+            '                                    <td>总计:</td>\n' +
+            '                                    <td>{{ data2.list_total20 }}$</td>\n' +
+            '                                </tr>\n' +
+            '                            <tfoot>\n' +
+            '                                <tr>\n' +
+            '                                    <td>已付金额:</td>\n' +
+            '                                    <td>{{yfje}}</td>\n' +
+            '                                </tr>\n' +
+            '                            </tfoot>\n' +
+            '                        </table>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </section>\n' +
+            '            <!-- Cart BG -->\n' +
+            '            <img src="{% static 'images/cart.jpg' %}" class="img-fluid cart-bg" alt="">\n' +
+            '\n' +
+            '        </div>\n' +
+            '    </div>\n' +
+            '\n'
+
+        for(var i=1;i<res.data2.list_product[0][0].length;i++) {
+                console.log(i)
+                   htmlStr +=
+
+            '    <div class="my-5 page" size="A4">\n' +
+            '\n' +
+            '        <div class="p-5">\n' +
+            '\n' +
+            '            <section class="product-area mt-4">\n' +
+            '                <table class="table table-hover">\n' +
+            '                    <thead>\n' +
+            '                        <tr>\n' +
+            '                            <td>产品细节</td>\n' +
+            '                            <td>价格</td>\n' +
+            '                            <td>数量</td>\n' +
+            '                            <td>总计</td>\n' +
+            '                        </tr>\n' +
+            '                    </thead>\n' +
+            '\n'+
+            '                    <tbody>\n'
+            '\n' +
+                    '                        <tr>\n' +
+                    '                            <td>\n' +
+                    '                                <div class="media">\n' +
+                    '                                    <img class="mr-3 img-fluid" src="{{ d.img }}" alt="Product 01>\n' +
+                    '                                    <div class="media-body">\n' +
+                    '                                        <p class="mt-0 title">{{ d.name }}</p>\n' +
+                    '                                        {{ d.info }}\n' +
+                    '                                    </div>\n' +
+                    '                                </div>\n' +
+                    '                            </td>\n' +
+                    '                            <td>{{ d.price }}</td>\n' +
+                    '                            <td>{{ d.quantity }}</td>\n' +
+                    '                            <td>{{ d.total_price }}</td>\n' +
+                    '                        </tr>\n' +
+                    '\n'+
+
+            '       </tbody>\n' +
+            '                </table>\n' +
+            '            </section>\n' +
+            '\n' +
+            '            <!-- Cart BG -->\n' +
+            '        </div>\n'
+            }
+            htmlStr+=
+            '    <div class="my-5 page" size="A4">\n' +
+            '\n' +
+            '\n' +
+            '\n' +
+            '            <section class="balance-info">\n' +
+            '                <div class="row">\n' +
+            '                    <div class="col-8">\n' +
+            '                        <p class="m-0 font-weight-bold"> 备注: </p>\n' +
+            '                        <p>{{ bz }}</p>\n' +
+            '                    </div>\n' +
+            '                    <div class="col-4">\n' +
+            '                        <table class="table border-0 table-hover">\n' +
+            '                            <tr>\n' +
+            '                                <td>小计:</td>\n' +
+            '                                <td>{{data2.list_total}}$</td>\n' +
+            '                            </tr>\n' +
+            '                            <tr>\n' +
+            '                                <td>税加20%:</td>\n' +
+            '                                <td>{{ data2.list_total0 }}$</td>\n' +
+            '                            </tr>\n' +
+            '                                <tr>\n' +
+            '                                    <td>总计:</td>\n' +
+            '                                    <td>{{ data2.list_total20 }}$</td>\n' +
+            '                                </tr>\n' +
+            '                            <tfoot>\n' +
+            '                                <tr>\n' +
+            '                                    <td>已付金额:</td>\n' +
+            '                                    <td>{{yfje}}</td>\n' +
+            '                                </tr>\n' +
+            '                            </tfoot>\n' +
+            '                        </table>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </section>\n' +
+            '            <img src="{% static 'images/cart.jpg' %}" class="img-fluid cart-bg" alt="">\n' +
+            '\n' +
+            '            <footer>\n' +
+            '                <hr>\n' +
+            '                <p class="m-0 text-center">\n' +
+            '                    Thank you for shopping from - <a href="#!"> Autoclean </a>\n' +
+            '                </p>\n' +
+            '                <p class="m-0 text-center">\n' +
+            '                    Butt & Co (UK) Limited\n' +
+            'A/CNo: 47976734\n' +
+            'Sort code: 60-83-71\n' +
+            'SWIFT/BIC: SRLGGB2L\n' +
+            'IBAN: GB36SRLG60837147976734 VAT No.: 324 8551 00\n' +
+            'EORI NO.: GB324 8551 00000\n' +
+            '                </p>\n' +
+            '                <div class="social pt-3">\n' +
+            '                </div>\n' +
+            '            </footer>\n' +
+            '\n' +
+            '        </div>'
+        $("#print-area").append(htmlStr)
+    }
+  })
+      function print(){
+        $("#print-area").jqprint({
+            debug:true,
+            importCSS:true,
+            printContainer:true,
+            operaSupport:false
+        })
+      }
+  </script>
+</html>
+{% endblock content %}

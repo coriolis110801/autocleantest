@@ -1,0 +1,10 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div>用户名：{{request.user.username}}</div>
+<div>邮箱：{{request.user.email}}</div>
+<div>注册时间：{{request.user.date_joined}}</div>
+<div>最后登录实践：{{request.user.last_login}}</div>
+
+{% endblock content %}
